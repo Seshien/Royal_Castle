@@ -2,10 +2,14 @@
 //
 
 #include <iostream>
-
+#include "GUI\window.h"
+#include<glad\glad.h>
+#include <GLFW\glfw3.h>
 int main()
 {
     std::cout << "Hello World!\n";
+    Window main_window;
+    main_window.StartWindow();
 }
 
 // Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
