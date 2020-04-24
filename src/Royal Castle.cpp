@@ -1,12 +1,15 @@
 ﻿// Royal Castle.cpp : Ten plik zawiera funkcję „main”. W nim rozpoczyna się i kończy wykonywanie programu.
 //
 
+
 #include <iostream>
+#include <time.h>
 #include "GUI\window.h"
-#include<glad\glad.h>
-#include <GLFW\glfw3.h>
+
+
 int main()
 {
+    srand(time(0));
     std::cout << "Hello World!\n";
     Window main_window;
     main_window.StartWindow();
