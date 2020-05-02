@@ -1,11 +1,16 @@
 #pragma once
 
 
-#include<glad\glad.h>
 
 #include <iostream>
 #include <random>
 
+//#include "..\Outside\include\glad\glad.h"
+//#include "..\Outside\include\GLFW\glfw3.h"
+//#include "..\Outside\include\glm\glm.hpp"
+//#include "..\Outside\include\glm\ext.hpp"
+
+#include<glad\glad.h>
 #include <GLFW\glfw3.h>
 #include <glm\glm.hpp>
 #include <glm\ext.hpp>

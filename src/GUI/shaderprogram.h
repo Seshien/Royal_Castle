@@ -18,10 +18,12 @@ Place, Fifth Floor, Boston, MA  02110 - 1301  USA
 */
 
 
-#ifndef SHADERPROGRAM_H
-#define SHADERPROGRAM_H
+#pragma once
 
 #include<glad\glad.h>
+//#include "..\Outside\include\glad\glad.h"
+
+
 //#include <GL/glew.h>
 #include "stdio.h"
 

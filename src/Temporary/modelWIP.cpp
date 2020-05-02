@@ -17,10 +17,10 @@ jeśli nie - napisz do Free Software Foundation, Inc., 59 Temple
 Place, Fifth Floor, Boston, MA  02110 - 1301  USA
 */
 
-#include "model.h"
+#include "modelWIP.h"
 
 namespace Models {
-	void Model::drawWire(bool smooth) {
+	void ModelWIP::drawWire(bool smooth) {
 		glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 
 		drawSolid(smooth);

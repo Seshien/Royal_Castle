@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -160,17 +160,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="mesh.cpp" />
     <ClCompile Include="src\Dependiences\glad.c" />
     <ClCompile Include="src\GUI\shaderprogram.cpp" />
     <ClCompile Include="src\GUI\window.cpp" />
     <ClCompile Include="src\Royal Castle.cpp" />
-    <ClCompile Include="src\Temporary\model.cpp" />
+    <ClCompile Include="src\Temporary\modelWIP.cpp" />
     <ClCompile Include="src\Temporary\teapot.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="mesh.h" />
     <ClInclude Include="src\GUI\shaderprogram.h" />
     <ClInclude Include="src\GUI\window.h" />
-    <ClInclude Include="src\Temporary\model.h" />
+    <ClInclude Include="src\Temporary\modelWIP.h" />
     <ClInclude Include="src\Temporary\teapot.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

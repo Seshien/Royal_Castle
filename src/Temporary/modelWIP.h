@@ -17,8 +17,7 @@ jeśli nie - napisz do Free Software Foundation, Inc., 59 Temple
 Place, Fifth Floor, Boston, MA  02110 - 1301  USA
 */
 
-#ifndef MODEL_H
-#define MODEL_H
+#pragma once
 
 
 #include<glad\glad.h>
@@ -29,7 +28,7 @@ Place, Fifth Floor, Boston, MA  02110 - 1301  USA
 
 namespace Models {
 
-	class Model {
+	class ModelWIP {
 		public:
 			int vertexCount;
 			float *vertices;
