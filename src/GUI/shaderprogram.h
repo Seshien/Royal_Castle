@@ -52,4 +52,4 @@ extern ShaderProgram *spLambert;
 void initShaders();
 void freeShaders();
 
-#endif
+

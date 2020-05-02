@@ -10,7 +10,7 @@
 int main()
 {
     srand(time(0));
-    std::cout << "Hello World!\n";
+   // std::cout << "Hello World!\n";
     Window main_window;
     main_window.StartWindow();
 }

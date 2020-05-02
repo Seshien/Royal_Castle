@@ -14,9 +14,10 @@
 #include <GLFW\glfw3.h>
 #include <glm\glm.hpp>
 #include <glm\ext.hpp>
-
+#include "..\model.h"
+#include "..\static_object.h"
 #include "shaderprogram.h"
-#include "..\Temporary\teapot.h"
+
 
 
 
@@ -31,7 +32,6 @@ public:
 private:
 
 	void RenderWindow();
-
 
 	void GLFWInit();
 	bool WindowInit();
@@ -48,9 +48,9 @@ private:
 
 	struct CameraCoords
 	{
-		float Z = 5.0f;
 		float X = 0.0f;
 		float Y = 0.0f;
+		float Z = 5.0f;
 	} cameraCoords;
 
 };

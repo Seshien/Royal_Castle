@@ -1,5 +1,7 @@
 #include "window.h"
 
+std::vector<Model*> objects;
+
 Window::Window()
 {
     GLFWInit();
@@ -57,6 +59,11 @@ bool Window::ShadersInit()
 {
     initShaders();
     glEnable(GL_DEPTH_TEST);
+
+    static_object* obj = new static_object("src\\cube.obj", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f));
+    obj->create_object();
+    objects.push_back(obj);
+
     return 0;
 }
 
@@ -112,18 +119,19 @@ void Window::RenderWindow()
 
     float time = glfwGetTime();
 
-    glm::mat4 Mt1 = glm::translate(I, glm::vec3(-1.0f, 0.0f, 0.0f)); //Macierz torusa to najpierw przesuniêcie do odpowiedniej pozycji...
+   /* glm::mat4 Mt1 = glm::translate(I, glm::vec3(-1.0f, 0.0f, 0.0f)); //Macierz torusa to najpierw przesuniêcie do odpowiedniej pozycji...
     Mt1 = glm::rotate(Mt1, 0.1f * time, glm::vec3(0.0f, 0.0f, 1.0f)); //... potem obrót ¿eby nasz "tryb" by³ odpowiednio obrócony
     glUniformMatrix4fv(spLambert->u("M"), 1, false, glm::value_ptr(Mt1));
     glUniform4f(spLambert->u("color"), 0, 1, 0, 1);
-    Models::teapot.drawSolid();
+   // Models::teapot.drawSolid();
 
     glm::mat4 Mt2 = glm::translate(I, glm::vec3(1.0f, 0.0f, 0.0f)); //Macierz torusa to najpierw przesuniêcie do odpowiedniej pozycji...
     Mt2 = glm::rotate(Mt2, -0.1f * time, glm::vec3(0.0f, 0.0f, 1.0f)); //... potem obrót ¿eby nasz "tryb" by³ odpowiednio obrócony
     glUniformMatrix4fv(spLambert->u("M"), 1, false, glm::value_ptr(Mt2));
     glUniform4f(spLambert->u("color"), 0, 1, 0, 1);
-    Models::teapot.drawSolid();
-
+    //Model::teapot.drawSolid();*/
+    glUniformMatrix4fv(spLambert->u("M"), 1, false, glm::value_ptr(objects[0]->Mat));
+    objects[0]->drawSolid();
 
     glfwSwapBuffers(window_ptr);
 }
