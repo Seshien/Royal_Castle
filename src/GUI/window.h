@@ -14,12 +14,14 @@
 #include <GLFW\glfw3.h>
 #include <glm\glm.hpp>
 #include <glm\ext.hpp>
+#include "shaderprogram.h"
 #include "..\model.h"
 #include "..\static_object.h"
-#include "shaderprogram.h"
+#include "camera.h"
 
 
-
+void ChangeViewSize_call(GLFWwindow* window, int width, int height);
+void ProcessMouse_call(GLFWwindow* window, double xpos, double ypos);
 
 class Window
 {
@@ -27,8 +29,12 @@ public:
 	Window();
 
 	bool StartWindow();
-	static void ChangeViewSize(GLFWwindow* window, int width, int height);
+	void ChangeViewSize(GLFWwindow* window, int width, int height);
+	void ProcessMouse(GLFWwindow* window, double xpos, double ypos);
+
+	std::unique_ptr<Camera> camera_ptr;
 	GLFWwindow* window_ptr;
+	std::unique_ptr<ShaderProgram> myShader;
 private:
 
 	void RenderWindow();
@@ -37,6 +43,7 @@ private:
 	bool WindowInit();
 	bool GladInit();
 	bool ShadersInit();
+	bool ObjectsInit();
 
 	void ProcessInput();
 
@@ -46,12 +53,9 @@ private:
 
 	void ClearWindow();
 
-	struct CameraCoords
-	{
-		float X = 0.0f;
-		float Y = 0.0f;
-		float Z = 5.0f;
-	} cameraCoords;
-
+	float timer;
+	float frameTime;
+	float lastFrameTime;
 };
+
 

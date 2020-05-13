@@ -19,20 +19,6 @@ Place, Fifth Floor, Boston, MA  02110 - 1301  USA
 
 #include "shaderprogram.h"
 
-
-ShaderProgram *spLambert;
-ShaderProgram *spConstant;
-
-void initShaders(){
-    spLambert=new ShaderProgram("src\\Dependiences\\v_lambert.glsl",NULL,"src\\Dependiences\\f_lambert.glsl");
-    spConstant=new ShaderProgram("src\\Dependiences\\v_constant.glsl",NULL,"src\\Dependiences\\f_constant.glsl");
-}
-
-void freeShaders(){
-    delete spLambert;
-}
-
-
 //Procedura wczytuje plik do tablicy znaków.
 char* ShaderProgram::readFile(const char* fileName) {
 	int filesize;
@@ -95,7 +81,7 @@ ShaderProgram::ShaderProgram(const char* vertexShaderFile,const char* geometrySh
 	vertexShader=loadShader(GL_VERTEX_SHADER,vertexShaderFile);
 
 	//Wczytaj geometry shader
-	if (geometryShaderFile!=NULL) {
+	if (geometryShaderFile!=NULL && geometryShaderFile != "no") {
 		printf("Loading geometry shader...\n");
 		geometryShader=loadShader(GL_GEOMETRY_SHADER,geometryShaderFile);
 	} else {
