@@ -208,8 +208,8 @@ void Window::ProcessInput()
     {
         camera_ptr->ChangePosition(DOWN, frameTime - lastFrameTime);
     }
-    if (objects[0]->collision(camera_ptr->cameraCoords)) { std::cout << "objects[0]: KOLICJA" << std::endl; }
-    if (objects[1]->collision(camera_ptr->cameraCoords)) { std::cout << "objects[1]: KOLICJA" << std::endl; }
+    for (int i = 0; i < objects.size(); i++)
+        if (objects[i]->collision(camera_ptr->cameraCoords)) std::cout << "objects[" << i << "]: KOLICJA" << std::endl;
 
 }
 
