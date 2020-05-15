@@ -20,7 +20,7 @@
 		void create_cuboid();
 		float wierzcholki[6] = { 0 }; //max x, max y, max z, min x, min y, min z
 		void drawSolid();
-		virtual bool collision(GLfloat, GLfloat, GLfloat) = 0;
+		virtual bool collision(glm::vec3) = 0;
 	};
 
 

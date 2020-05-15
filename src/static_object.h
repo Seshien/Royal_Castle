@@ -23,6 +23,6 @@ public:
 	static_object();
 	static_object (std::string path, glm::vec3 position, glm::vec3 scale, glm::vec3 rotate);
 	void create_object();
-	bool collision(GLfloat, GLfloat, GLfloat);
+	bool collision(glm::vec3);
 };
 
