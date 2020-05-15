@@ -117,17 +117,17 @@ void static_object::create_object()
 		std::cout << wierzcholki[i] << " " << wierzcholki[i + 1] << " " << wierzcholki[i + 2] << std::endl;
 	}
 }
-bool static_object::collision(GLfloat polozenie_x, GLfloat polozenie_y, GLfloat polozenie_z)
+bool static_object::collision(glm::vec3 polozenie)
 {
-    std::cout << "min x: " << wierzcholki[3] << "   x: " << polozenie_x << " max x: " << wierzcholki[0] << std::endl;
-    std::cout << "min y: " << wierzcholki[4] << "   y: " << polozenie_y << " max y: " << wierzcholki[1] << std::endl;
-    std::cout << "min z: " << wierzcholki[5] << "   z: " << polozenie_z << " max z: " << wierzcholki[2] << std::endl;
-    std::cout << std::endl;
-    if (polozenie_x <= wierzcholki[0] && //x <= max x
-        wierzcholki[3] <= polozenie_x && //x >= min x
-        polozenie_y <= wierzcholki[1] && //y <= max y
-        wierzcholki[4] <= polozenie_y && // y >= mn y
-        polozenie_z <= wierzcholki[2] && // z <= max z
-        wierzcholki[5] <= polozenie_x) return 1; // z >= min z
+    //std::cout << "min x: " << wierzcholki[3] << "   x: " << polozenie.x << " max x: " << wierzcholki[0] << std::endl;
+   // std::cout << "min y: " << wierzcholki[4] << "   y: " << polozenie.y << " max y: " << wierzcholki[1] << std::endl;
+  //  std::cout << "min z: " << wierzcholki[5] << "   z: " << polozenie.z << " max z: " << wierzcholki[2] << std::endl;
+    //std::cout << std::endl;
+    if (polozenie.x <= wierzcholki[0] && //x <= max x
+        wierzcholki[3] <= polozenie.x && //x >= min x
+        polozenie.y <= wierzcholki[1] && //y <= max y
+        wierzcholki[4] <= polozenie.y && // y >= mn y
+        polozenie.z <= wierzcholki[2] && // z <= max z
+        wierzcholki[5] <= polozenie.x) return 1; // z >= min z
     return 0;
 }
