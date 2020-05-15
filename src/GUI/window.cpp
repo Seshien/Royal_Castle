@@ -185,28 +185,32 @@ void Window::ProcessInput()
     if (glfwGetKey(window_ptr, GLFW_KEY_W) == GLFW_PRESS)
     {
         camera_ptr->ChangePosition(FORWARD, frameTime - lastFrameTime);
-        if (objects[0]->collision(camera_ptr->cameraCoords)) { std::cout << "objects[0]: KOLICJA" << std::endl; }
-        if (objects[1]->collision(camera_ptr->cameraCoords)) { std::cout << "objects[1]: KOLICJA" << std::endl; }
     }
     if (glfwGetKey(window_ptr, GLFW_KEY_S) == GLFW_PRESS)
     {
         camera_ptr->ChangePosition(BACKWARD, frameTime - lastFrameTime);
-        if (objects[0]->collision(camera_ptr->cameraCoords)) { std::cout << "objects[0]: KOLICJA" << std::endl;}
-        if (objects[1]->collision(camera_ptr->cameraCoords)) { std::cout << "objects[1]: KOLICJA" << std::endl; }
     }
     if (glfwGetKey(window_ptr, GLFW_KEY_A) == GLFW_PRESS)
     {
         camera_ptr->ChangePosition(LEFT, frameTime - lastFrameTime);
-        if (objects[0]->collision(camera_ptr->cameraCoords)) { std::cout << "objects[0]: KOLICJA" << std::endl; }
-        if (objects[1]->collision(camera_ptr->cameraCoords)) { std::cout << "objects[1]: KOLICJA" << std::endl;}
     }
     if (glfwGetKey(window_ptr, GLFW_KEY_D) == GLFW_PRESS)
     {
         camera_ptr->ChangePosition(RIGHT, frameTime - lastFrameTime);
+    }
+
     if (glfwGetKey(window_ptr, GLFW_KEY_SPACE) == GLFW_PRESS)
+    {
         camera_ptr->ChangePosition(UP, frameTime - lastFrameTime);
+    }
+
     if (glfwGetKey(window_ptr, GLFW_KEY_C) == GLFW_PRESS)
+    {
         camera_ptr->ChangePosition(DOWN, frameTime - lastFrameTime);
+    }
+    if (objects[0]->collision(camera_ptr->cameraCoords)) { std::cout << "objects[0]: KOLICJA" << std::endl; }
+    if (objects[1]->collision(camera_ptr->cameraCoords)) { std::cout << "objects[1]: KOLICJA" << std::endl; }
+
 }
 
 void Window::ChangeClearColor(float x = 0.0f, float y = 0.0f, float z = 0.0f, float a = 1.0f)
