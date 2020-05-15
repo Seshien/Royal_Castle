@@ -6,7 +6,9 @@ enum CameraMoveType {
     FORWARD,
     BACKWARD,
     LEFT,
-    RIGHT
+    RIGHT,
+    UP,
+    DOWN
 };
 
 class Camera
@@ -46,6 +48,10 @@ public:
             cameraCoords -= cameraRightCoords * velocity;
         if (type == RIGHT)
             cameraCoords += cameraRightCoords * velocity;
+        if (type == UP)
+            cameraCoords += cameraUpCoords * velocity;
+        if (type == DOWN)
+            cameraCoords -= cameraUpCoords * velocity;
     }
 
     void ChangeViewPosition(float x, float y)

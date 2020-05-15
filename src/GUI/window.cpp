@@ -1,6 +1,5 @@
 #include "window.h"
 
-std::vector<Model*> objects;
 
 Window::Window()
 {
@@ -78,12 +77,12 @@ bool Window::ShadersInit()
 
 bool Window::ObjectsInit()
 {
-    static_object* obj = new static_object("src\\cube.obj", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f));
-    obj->create_object();
-    static_object* obj2 = new static_object("src\\cube.obj", glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(0.4f, 0.2f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f));
-    obj2->create_object();
-    objects.push_back(obj);
-    objects.push_back(obj2);
+
+    objects.push_back(new static_object("src\\cube.obj", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f)));
+    objects.push_back(new static_object("src\\cube.obj", glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(0.4f, 0.2f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f)));
+
+    for (auto object : objects)
+        object->create_object();
     return 0;
 }
 
@@ -173,8 +172,11 @@ void Window::ProcessInput()
     if (timer > 5.0)
     {
         timer = 0;
-        std::cout << "Pozycja" << std::endl;
+        std::cout << "Pozycja kamer" << std::endl;
         camera_ptr->printCoords();
+        std::cout << "Pozycja obiektow" << std::endl;
+        for (int i=0;i<objects.size();i++)
+            std::cout <<"Object" << i << " - " << objects[i]->position.x << " : " << objects[i]->position.y << " : " << objects[i]->position.z << std::endl;
     }
 
     if (glfwGetKey(window_ptr, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -188,6 +190,10 @@ void Window::ProcessInput()
         camera_ptr->ChangePosition(LEFT, frameTime - lastFrameTime);
     if (glfwGetKey(window_ptr, GLFW_KEY_D) == GLFW_PRESS)
         camera_ptr->ChangePosition(RIGHT, frameTime - lastFrameTime);
+    if (glfwGetKey(window_ptr, GLFW_KEY_SPACE) == GLFW_PRESS)
+        camera_ptr->ChangePosition(UP, frameTime - lastFrameTime);
+    if (glfwGetKey(window_ptr, GLFW_KEY_C) == GLFW_PRESS)
+        camera_ptr->ChangePosition(DOWN, frameTime - lastFrameTime);
 }
 
 void Window::ChangeClearColor(float x = 0.0f, float y = 0.0f, float z = 0.0f, float a = 1.0f)

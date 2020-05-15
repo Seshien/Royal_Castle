@@ -48,11 +48,12 @@ private:
 	void ProcessInput();
 
 	void ChangeClearColor(float x, float y, float z, float a);
-
+	
 	void RandomClearColor();
 
 	void ClearWindow();
 
+	std::vector<static_object*> objects;
 	float timer;
 	float frameTime;
 	float lastFrameTime;

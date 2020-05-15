@@ -1,10 +1,5 @@
 #include "static_object.h"
-#include "model.h"
-#include <fstream>
-#include <string>
-#include <vector>
-#include <cstdlib>
-#include <iostream>
+
 using namespace std;
 static_object::static_object(std::string path, glm::vec3 position, glm::vec3 scale, glm::vec3 rotate)
 	:path(path), position(position), scale(scale), rotate(rotate)
