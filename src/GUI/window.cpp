@@ -77,10 +77,18 @@ bool Window::ShadersInit()
 
 bool Window::ObjectsInit()
 {
-
-    //objects.push_back(new static_object("data\\cube.obj", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f)));
-    //objects.push_back(new static_object("data\\Castle\\Castle OBJ.obj", glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(0.4f, 0.2f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f)));
-    models.push_back(ModelWIP("data\\Castle\\Castle OBJ.obj", glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
+        GLfloat pozx = -10;
+        //objects.push_back(new static_object("data\\cube.obj", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f)));
+        //objects.push_back(new static_object("data\\Castle\\Castle OBJ.obj", glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(0.4f, 0.2f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f)));
+        models.push_back(ModelWIP("data\\Castle\\Castle OBJ.obj", glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
+        for (int i = 0; i < 5; i++)
+        {
+            objects.push_back(new static_object("src\\cube.obj", glm::vec3(pozx,0.0f, 0.0f), glm::vec3(0.3f, 3.0f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f)));
+            pozx += 3;
+        }
+        
+    //objects.push_back(new static_object("src\\cube.obj", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f)));
+    //objects.push_back(new static_object("src\\cube.obj", glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(0.4f, 0.2f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f)));
 
     for (auto object : objects)
         object->create_object();
@@ -169,6 +177,7 @@ void Window::ProcessMouse(GLFWwindow* window, double xpos, double ypos)
 
 void Window::ProcessInput()
 {
+    float przesuniecie;
     timer += glfwGetTime() - frameTime;
     lastFrameTime = frameTime;
     frameTime = glfwGetTime();
@@ -188,32 +197,72 @@ void Window::ProcessInput()
 
     if (glfwGetKey(window_ptr, GLFW_KEY_W) == GLFW_PRESS)
     {
-        camera_ptr->ChangePosition(FORWARD, frameTime - lastFrameTime);
+        przesuniecie = frameTime - lastFrameTime;
+        camera_ptr->ChangePosition(FORWARD, przesuniecie);
+        for (int i = 0; i < objects.size(); i++)
+            if (objects[i]->collision(camera_ptr->cameraCoords))
+            {
+                camera_ptr->ChangePosition(BACKWARD, przesuniecie);
+                std::cout << "objects[" << i << "]: KOLICJA" << std::endl;
+         }
     }
     if (glfwGetKey(window_ptr, GLFW_KEY_S) == GLFW_PRESS)
     {
-        camera_ptr->ChangePosition(BACKWARD, frameTime - lastFrameTime);
+        przesuniecie = frameTime - lastFrameTime;
+        camera_ptr->ChangePosition(BACKWARD, przesuniecie);     
+        for (int i = 0; i < objects.size(); i++)
+            if (objects[i]->collision(camera_ptr->cameraCoords))
+            {
+                camera_ptr->ChangePosition(FORWARD, przesuniecie);
+                std::cout << "objects[" << i << "]: KOLICJA" << std::endl;
+            }
     }
     if (glfwGetKey(window_ptr, GLFW_KEY_A) == GLFW_PRESS)
     {
-        camera_ptr->ChangePosition(LEFT, frameTime - lastFrameTime);
+        przesuniecie = frameTime - lastFrameTime;
+        camera_ptr->ChangePosition(LEFT, przesuniecie);
+        for (int i = 0; i < objects.size(); i++)
+            if (objects[i]->collision(camera_ptr->cameraCoords))
+            {
+                camera_ptr->ChangePosition(RIGHT, przesuniecie);
+                std::cout << "objects[" << i << "]: KOLICJA" << std::endl;
+            }
     }
     if (glfwGetKey(window_ptr, GLFW_KEY_D) == GLFW_PRESS)
     {
-        camera_ptr->ChangePosition(RIGHT, frameTime - lastFrameTime);
+        przesuniecie = frameTime - lastFrameTime;
+        camera_ptr->ChangePosition(RIGHT, przesuniecie);
+        for (int i = 0; i < objects.size(); i++)
+            if (objects[i]->collision(camera_ptr->cameraCoords))
+            {
+                camera_ptr->ChangePosition(LEFT, przesuniecie);
+                std::cout << "objects[" << i << "]: KOLICJA" << std::endl;
+            }
     }
 
     if (glfwGetKey(window_ptr, GLFW_KEY_SPACE) == GLFW_PRESS)
     {
-        camera_ptr->ChangePosition(UP, frameTime - lastFrameTime);
+        przesuniecie = frameTime - lastFrameTime;
+        camera_ptr->ChangePosition(UP, przesuniecie);
+        for (int i = 0; i < objects.size(); i++)
+            if (objects[i]->collision(camera_ptr->cameraCoords))
+            {
+                camera_ptr->ChangePosition(DOWN, przesuniecie);
+                std::cout << "objects[" << i << "]: KOLICJA" << std::endl;
+            }
     }
 
     if (glfwGetKey(window_ptr, GLFW_KEY_C) == GLFW_PRESS)
     {
-        camera_ptr->ChangePosition(DOWN, frameTime - lastFrameTime);
+        przesuniecie = frameTime - lastFrameTime;
+        camera_ptr->ChangePosition(DOWN, przesuniecie);
+        for (int i = 0; i < objects.size(); i++)
+            if (objects[i]->collision(camera_ptr->cameraCoords))
+            {
+                camera_ptr->ChangePosition(UP, przesuniecie);
+                std::cout << "objects[" << i << "]: KOLICJA" << std::endl;
+            }
     }
-    for (int i = 0; i < objects.size(); i++)
-        if (objects[i]->collision(camera_ptr->cameraCoords)) std::cout << "objects[" << i << "]: KOLICJA" << std::endl;
 
 }
 
