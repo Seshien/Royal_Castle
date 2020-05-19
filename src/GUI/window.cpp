@@ -78,8 +78,9 @@ bool Window::ShadersInit()
 bool Window::ObjectsInit()
 {
 
-    objects.push_back(new static_object("src\\cube.obj", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f)));
-    objects.push_back(new static_object("src\\cube.obj", glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(0.4f, 0.2f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f)));
+    //objects.push_back(new static_object("data\\cube.obj", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f)));
+    //objects.push_back(new static_object("data\\Castle\\Castle OBJ.obj", glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(0.4f, 0.2f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f)));
+    models.push_back(ModelWIP("data\\Castle\\Castle OBJ.obj", glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
 
     for (auto object : objects)
         object->create_object();
@@ -94,9 +95,6 @@ void Window::ChangeViewSize(GLFWwindow* window, int width, int height)
 //PETLA
 bool Window::StartWindow()
 {
-
-    ChangeClearColor(0,0,0,1);
-
 
     glfwSetTime(0); //Wyzeruj timer
     frameTime = 0;
@@ -150,10 +148,16 @@ void Window::RenderWindow()
     glUniformMatrix4fv(myShader->u("M"), 1, false, glm::value_ptr(Mt2));
     glUniform4f(myShader->u("color"), 0, 1, 0, 1);
     //Model::teapot.drawSolid();*/
-    glUniformMatrix4fv(myShader->u("M"), 1, false, glm::value_ptr(objects[0]->Mat));
-    objects[0]->drawSolid();
-    glUniformMatrix4fv(myShader->u("M"), 1, false, glm::value_ptr(objects[1]->Mat));
-    objects[1]->drawSolid();
+    for (auto object : objects)
+    {
+        glUniformMatrix4fv(myShader->u("M"), 1, false, glm::value_ptr(object->Mat));
+        object->drawSolid();
+    }
+    for (auto model : models)
+    {
+        glUniformMatrix4fv(myShader->u("M"), 1, false, glm::value_ptr(model.Mat));
+        model.Draw();
+    }
 
     glfwSwapBuffers(window_ptr);
 }
@@ -211,16 +215,6 @@ void Window::ProcessInput()
     for (int i = 0; i < objects.size(); i++)
         if (objects[i]->collision(camera_ptr->cameraCoords)) std::cout << "objects[" << i << "]: KOLICJA" << std::endl;
 
-}
-
-void Window::ChangeClearColor(float x = 0.0f, float y = 0.0f, float z = 0.0f, float a = 1.0f)
-{
-    glClearColor(x, y, z, a);
-}
-
-void Window::RandomClearColor()
-{
-    ChangeClearColor(rand() % 100 / 100.0, rand() % 100 / 100.0, rand() % 100 / 100.0, rand() % 100 / 100.0);
 }
 
 void Window::ClearWindow()

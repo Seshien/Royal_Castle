@@ -29,7 +29,7 @@ public:
 
         first_time = true;
 
-        cameraCoords = glm::vec3(0.0f, 0.0f, 2.0f);
+        cameraCoords = glm::vec3(0.0f, 2.0f, 2.0f);
         cameraViewCoords = glm::vec3(0.0f, 0.0f, -1.0f);
         cameraDefUpCoords = glm::vec3(0.0f, 1.0f, 0.0f);
         cameraUpCoords = glm::vec3(0.0f, 1.0f, 0.0f);

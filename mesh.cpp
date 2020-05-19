@@ -40,20 +40,20 @@ void Mesh::initMesh()
     glBindVertexArray(0);
 }
 
-void Mesh::drawSolid(ShaderProgram shader)
+void Mesh::drawSolid()
 {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    draw(shader);
+    draw();
 }
 
-void Mesh::drawWire(ShaderProgram shader)
+void Mesh::drawWire()
 {
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    draw(shader);
+    draw();
 }
 
 
-void Mesh::draw(ShaderProgram shader)
+void Mesh::draw()
 {
     /*
     unsigned int diffuseNr = 1;

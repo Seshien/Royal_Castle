@@ -98,7 +98,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Users\macie\Desktop\Studia\Royal_Castle\dependiences\lib;D:\ja\studia\IV SEMESTR\Grafika Komputerowa i Wizualizacja\lib;C:\Users\macie\Desktop\Studia\Royal_Castle\dependiences\lib_assimp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc142-mtd.lib;glfw3.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlibstaticd.lib;IrrXMLd.lib;assimp-vc142-mtd.lib;glfw3.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -136,7 +136,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Users\macie\Desktop\Studia\Royal_Castle\dependiences\lib;D:\ja\studia\IV SEMESTR\Grafika Komputerowa i Wizualizacja\lib;C:\Users\macie\Desktop\Studia\Royal_Castle\dependiences\lib_assimp;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>assimp-vc142-mtd.lib;glfw3.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc142-mt.lib;glfw3.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -162,6 +162,7 @@
   <ItemGroup>
     <ClCompile Include="mesh.cpp" />
     <ClCompile Include="src\Dependiences\glad.c" />
+    <ClCompile Include="src\Dependiences\stb_image.cpp" />
     <ClCompile Include="src\GUI\camera.cpp" />
     <ClCompile Include="src\GUI\shaderprogram.cpp" />
     <ClCompile Include="src\GUI\window.cpp" />
@@ -174,6 +175,7 @@
   <ItemGroup>
     <ClInclude Include="mesh.h" />
     <ClInclude Include="src\constants.h" />
+    <ClInclude Include="src\Dependiences\stb_image.h" />
     <ClInclude Include="src\GUI\camera.h" />
     <ClInclude Include="src\GUI\shaderprogram.h" />
     <ClInclude Include="src\GUI\window.h" />

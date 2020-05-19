@@ -1,6 +1,5 @@
 #pragma once
 #include "model.h"
-#include "model.h"
 #include <fstream>
 #include <string>
 #include <vector>

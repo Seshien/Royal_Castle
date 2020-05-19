@@ -15,6 +15,7 @@
 #include <glm\glm.hpp>
 #include <glm\ext.hpp>
 #include "shaderprogram.h"
+#include "..\Temporary\modelWIP.h"
 #include "..\model.h"
 #include "..\static_object.h"
 #include "camera.h"
@@ -47,13 +48,11 @@ private:
 
 	void ProcessInput();
 
-	void ChangeClearColor(float x, float y, float z, float a);
-	
-	void RandomClearColor();
 
 	void ClearWindow();
 
 	std::vector<static_object*> objects;
+	std::vector<ModelWIP> models;
 	float timer;
 	float frameTime;
 	float lastFrameTime;

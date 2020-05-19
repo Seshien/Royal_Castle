@@ -19,28 +19,51 @@ Place, Fifth Floor, Boston, MA  02110 - 1301  USA
 
 #pragma once
 
-
-#include<glad\glad.h>
+#include <iostream>
 #include <vector>
-#include <glm/glm.hpp>
-#include <GLFW/glfw3.h>
-#include <assimp/config.h>
+#include <glad\glad.h>
+#include <glm\glm.hpp>
+#include <glm\ext.hpp>
+#include <GLFW\glfw3.h>
+#include "..\Dependiences\stb_image.h"
+#include <assimp\Importer.hpp>
+#include <assimp\scene.h>
+#include <assimp\postprocess.h>
+#include "..\GUI\shaderprogram.h"
+#include "..\..\mesh.h"
 //#include "constants.h"
 
-namespace Models {
+unsigned int TextureFromFile(const char* path, const std::string& directory);
 
-	class ModelWIP {
-		public:
-			int vertexCount;
-			float *vertices;
-			float *normals;
-			float *vertexNormals;
-			float *texCoords;
-			float *colors;
+class ModelWIP
+{
+public:
 
-			virtual void drawSolid(bool smooth)=0;
-			virtual void drawWire(bool smooth=false);
-	};
-}
+    ModelWIP(std::string path, glm::vec3 position, glm::vec3 scale, glm::vec3 rotate)
+    {
+        loadModel(path);
+        glm::mat4 M = glm::mat4(1.0f);
+        glm::mat4 M1 = glm::rotate(M, 1.0f, rotate);
+        glm::mat4 M2 = glm::scale(M, scale);
+        Mat = glm::translate(M2, position);
+    }
+
+    void Draw();
+
+    glm::mat4 Mat;
+    std::vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
+private:
+    // model data
+    std::vector<Mesh> meshes;
+    std::string directory;
+
+    void loadModel(std::string path);
+
+    void processNode(aiNode* node, const aiScene* scene);
+    Mesh processMesh(aiMesh* mesh, const aiScene* scene);
+    std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
+};
+
+
 
 
