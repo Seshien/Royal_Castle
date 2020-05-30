@@ -98,7 +98,7 @@ ShaderProgram::ShaderProgram(const char* vertexShaderFile,const char* geometrySh
 	//Podłącz do niego shadery i zlinkuj program
 	glAttachShader(shaderProgram,vertexShader);
 	glAttachShader(shaderProgram,fragmentShader);
-	if (geometryShaderFile!=NULL) glAttachShader(shaderProgram,geometryShader);
+	if (geometryShaderFile != NULL && geometryShaderFile != "no") glAttachShader(shaderProgram,geometryShader);
 	glLinkProgram(shaderProgram);
 
 	//Pobierz log błędów linkowania i wyświetl

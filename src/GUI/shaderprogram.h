@@ -38,6 +38,7 @@ private:
 	char* readFile(const char* fileName); //metoda wczytująca plik tekstowy do tablicy znaków
 	GLuint loadShader(GLenum shaderType,const char* fileName); //Metoda wczytuje i kompiluje shader, a następnie zwraca jego uchwyt
 public:
+	GLuint GetID() { return this->shaderProgram; }
 	ShaderProgram(const char* vertexShaderFile,const char* geometryShaderFile,const char* fragmentShaderFile);
 	~ShaderProgram();
 	void use(); //Włącza wykorzystywanie programu cieniującego
@@ -46,7 +47,6 @@ public:
 };
 
 
-extern ShaderProgram *spConstant;
 extern ShaderProgram *myShader;
 
 void initShaders();

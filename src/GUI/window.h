@@ -1,23 +1,17 @@
 #pragma once
 
 
-
 #include <iostream>
 #include <random>
-
-//#include "..\Outside\include\glad\glad.h"
-//#include "..\Outside\include\GLFW\glfw3.h"
-//#include "..\Outside\include\glm\glm.hpp"
-//#include "..\Outside\include\glm\ext.hpp"
 
 #include<glad\glad.h>
 #include <GLFW\glfw3.h>
 #include <glm\glm.hpp>
 #include <glm\ext.hpp>
+#include "..\constants.h"
 #include "shaderprogram.h"
-#include "..\Temporary\modelWIP.h"
-#include "..\model.h"
-#include "..\static_object.h"
+#include "modelTemplate.h"
+#include "model.h"
 #include "camera.h"
 
 
@@ -32,12 +26,15 @@ public:
 	bool StartWindow();
 	void ChangeViewSize(GLFWwindow* window, int width, int height);
 	void ProcessMouse(GLFWwindow* window, double xpos, double ypos);
+	
 
 	std::unique_ptr<Camera> camera_ptr;
 	GLFWwindow* window_ptr;
-	std::unique_ptr<ShaderProgram> myShader;
+	std::shared_ptr<ShaderProgram> myShader;
+
 private:
 
+	GLfloat scale_x, scale_y, scale_z, pos_x, pos_y, pos_z;
 	void RenderWindow();
 
 	void GLFWInit();
@@ -46,13 +43,24 @@ private:
 	bool ShadersInit();
 	bool ObjectsInit();
 
+	void CreateTemplate(std::string path, std::string name, std::shared_ptr<ShaderProgram> shader);
+
+	std::shared_ptr<ModelTemplate> FindTemplate(std::string name);
+
+	void CreateObject(std::string name, glm::vec3 position, glm::vec3 scale, glm::vec3 rotate, float angle, glm::vec3 color);
+
 	void ProcessInput();
 
+	void ProcessOther();
 
 	void ClearWindow();
 
-	std::vector<static_object*> objects;
-	std::vector<ModelWIP> models;
+	void ProcessMovement();
+
+
+	std::vector<Model> objects;
+	std::vector<std::shared_ptr<ModelTemplate>> modelTemplates;
+	std::unique_ptr<Model> player_ptr;
 	float timer;
 	float frameTime;
 	float lastFrameTime;
