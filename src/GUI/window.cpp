@@ -73,7 +73,7 @@ bool Window::ShadersInit()
     //myShader = std::make_shared<ShaderProgram>("src\\Dependiences\\v_lamberttextured.glsl", "no", "src\\Dependiences\\f_lamberttextured.glsl");
 	myShader = std::make_shared<ShaderProgram>("src\\Dependiences\\v_lambert.glsl", "no", "src\\Dependiences\\f_lambert.glsl");
     glEnable(GL_DEPTH_TEST);
-
+	glEnable(GL_BLEND);
     return 0;
 }
 
@@ -98,7 +98,7 @@ bool Window::ObjectsInit()
 
     CreateObject("cube", glm::vec3(-10*scale_x, -0.45f, 40*scale_z), glm::vec3(150*scale_x, 0.1, 160*scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f));
 	CreateObject("house", glm::vec3(50.4f, 0.2f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f));
-	//CreateObject("castle", glm::vec3(40.4f, 0.2f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f));
+	CreateObject("castle", glm::vec3(40.4f, 0.2f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f));
 	//mury
  
 	CreateObject("mur", glm::vec3(140*scale_x, 0 * scale_y, 40*scale_z), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0,  glm::vec3(0.0f, 1.0f, 0.0f));                                //0.0f, 0.0f, 0.0f
