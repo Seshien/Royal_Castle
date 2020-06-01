@@ -23,7 +23,7 @@ Place, Fifth Floor, Boston, MA  02110 - 1301  USA
 unsigned int TextureFromFile(const char* path, const std::string& directory)
 {
     std::string filename = std::string(path);
-    filename = directory + "\\Texture\\" + filename;
+    filename = "data\\Texture\\" + filename;
 
     unsigned int textureID;
     glGenTextures(1, &textureID);
