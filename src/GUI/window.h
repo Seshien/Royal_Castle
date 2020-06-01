@@ -30,7 +30,8 @@ public:
 
 	std::unique_ptr<Camera> camera_ptr;
 	GLFWwindow* window_ptr;
-	std::shared_ptr<ShaderProgram> myShader;
+	std::shared_ptr<ShaderProgram> TexturedShader;
+	std::shared_ptr<ShaderProgram> ColorShader;
 
 private:
 

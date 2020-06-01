@@ -6,6 +6,7 @@ uniform mat4 V;
 uniform mat4 M;
 
 
+uniform vec4 color=vec4(1,1,1,1);
 uniform vec4 lightDir=vec4(0,0,1,0);
 
 //Atrybuty
@@ -17,6 +18,7 @@ layout (location=2) in vec2 texCoord; //wspó³rzêdne teksturowania
 //Zmienne interpolowane
 out vec2 i_tc;
 out float i_nl;
+out vec4 i_color;
 
 void main(void) {
     gl_Position=P*V*M*vertex;
@@ -24,6 +26,8 @@ void main(void) {
     mat4 G=mat4(inverse(transpose(mat3(M))));
     vec4 n=normalize(V*G*normal);
 
+    float nl=clamp(dot(n,lightDir),0,1);
+	i_color=vec4(color.rgb*nl,color.a);
     i_nl=clamp(dot(n,lightDir),0,1);
     i_tc=texCoord;
 }

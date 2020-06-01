@@ -68,24 +68,28 @@ bool Window::WindowInit()
 
 bool Window::ShadersInit()
 {
-    glEnable(GL_DEPTH_CLAMP);
+    //glEnable(GL_DEPTH_CLAMP);
+	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_BLEND);
+	glClearColor(1.0f, 0.8f, 0.8f, 1.0f);
+
     //myShader = new ShaderProgram("src\\Dependiences\\v_lambert.glsl", NULL, "src\\Dependiences\\f_lambert.glsl");
-    //myShader = std::make_shared<ShaderProgram>("src\\Dependiences\\v_lamberttextured.glsl", "no", "src\\Dependiences\\f_lamberttextured.glsl");
-	myShader = std::make_shared<ShaderProgram>("src\\Dependiences\\v_lambert.glsl", "no", "src\\Dependiences\\f_lambert.glsl");
-    glEnable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
+    TexturedShader = std::make_shared<ShaderProgram>("src\\Dependiences\\v_lamberttextured.glsl", "no", "src\\Dependiences\\f_lamberttextured.glsl");
+	//TexturedShader = std::make_shared<ShaderProgram>("src\\Dependiences\\v_simplest.glsl", "no", "src\\Dependiences\\f_simplest.glsl");
+	ColorShader = std::make_shared<ShaderProgram>("src\\Dependiences\\v_lambert.glsl", "no", "src\\Dependiences\\f_lambert.glsl");
+
     return 0;
 }
 
 bool Window::ObjectsInit()
 {
         
-	CreateTemplate("data\\Castle\\Castle OBJ.obj", "castle", myShader);
+	CreateTemplate("data\\Castle\\Castle OBJ.obj", "castle", TexturedShader);
 
-	CreateTemplate("data\\cube.obj", "cube", myShader);
-	CreateTemplate("data\\medieval-house.obj", "house", myShader);
-	CreateTemplate("data\\mur.obj", "mur", myShader);
-	CreateTemplate("data\\stragan.obj", "stragan", myShader);
+	CreateTemplate("data\\cube.obj", "cube", TexturedShader);
+	CreateTemplate("data\\medieval-house.obj", "house", TexturedShader);
+	CreateTemplate("data\\mur.obj", "mur", TexturedShader);
+	CreateTemplate("data\\stragan.obj", "stragan", TexturedShader);
 
 	scale_x = 0.2;
 	scale_y = 0.2;
@@ -175,23 +179,22 @@ void Window::RenderWindow()
     glm::mat4 V = glm::lookAt(camera_ptr->cameraCoords, camera_ptr->cameraViewCoords + camera_ptr->cameraCoords, camera_ptr->cameraDefUpCoords); //Wylicz macierz widoku
     glm::mat4 P = glm::perspective(glm::radians(50.0f), 1.0f, 1.0f, 100.0f); //Wylicz macierz rzutowania
 
-    myShader->use(); //Aktywuj program cieniuj¹cy
-    glUniform4f(myShader->u("color"), 0, 1, 0, 1); //Ustaw kolor rysowania obiektu
-    glUniformMatrix4fv(myShader->u("P"), 1, false, glm::value_ptr(P)); //Za³aduj do programu cieniuj¹cego macierz rzutowania
-    glUniformMatrix4fv(myShader->u("V"), 1, false, glm::value_ptr(V)); //Za³aduj do programu cieniuj¹cego macierz widoku
+    TexturedShader->use(); //Aktywuj program cieniuj¹cy
+    glUniformMatrix4fv(TexturedShader->u("P"), 1, false, glm::value_ptr(P)); //Za³aduj do programu cieniuj¹cego macierz rzutowania
+    glUniformMatrix4fv(TexturedShader->u("V"), 1, false, glm::value_ptr(V)); //Za³aduj do programu cieniuj¹cego macierz widoku
 
 
     //MODELE
 	auto color = player_ptr->GetColor();
-	glUniform4f(myShader->u("color"), color.x, color.y, color.z, 1);
-	glUniformMatrix4fv(myShader->u("M"), 1, false, glm::value_ptr(player_ptr->GetMatrix()));
+	glUniform4f(TexturedShader->u("color"), color.x, color.y, color.z, 1);
+	glUniformMatrix4fv(TexturedShader->u("M"), 1, false, glm::value_ptr(player_ptr->GetMatrix()));
 	player_ptr->DrawWire();
   
     for (auto model : objects)
     {
 		color = model.GetColor();
-		glUniform4f(myShader->u("color"), color.x, color.y, color.z, 1);
-        glUniformMatrix4fv(myShader->u("M"), 1, false, glm::value_ptr(model.GetMatrix()));
+		glUniform4f(TexturedShader->u("color"), color.x, color.y, color.z, 1);
+        glUniformMatrix4fv(TexturedShader->u("M"), 1, false, glm::value_ptr(model.GetMatrix()));
         model.Draw();
     }
 

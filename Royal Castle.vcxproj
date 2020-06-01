@@ -182,6 +182,10 @@
     <ClInclude Include="src\lodepng.h" />
     <ClInclude Include="src\GUI\modelTemplate.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Dependiences\f_lamberttextured.glsl" />
+    <None Include="src\Dependiences\v_lamberttextured.glsl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
