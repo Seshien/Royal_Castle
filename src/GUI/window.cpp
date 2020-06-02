@@ -86,8 +86,10 @@ bool Window::ObjectsInit()
         
 	//CreateTemplate("data\\Castle\\Castle OBJ.obj", "castle", TexturedShader);
 
+	
 	CreateTemplate("data\\cube.obj", "cube", TexturedShader);
-	CreateTemplate("data\\medieval-house.obj", "house", TexturedShader);
+	CreateTemplate("data\\cube_2.obj", "cube_2", TexturedShader);
+	CreateTemplate("data\\medix`eval-house.obj", "house", TexturedShader);
 	CreateTemplate("data\\mur.obj", "mur", TexturedShader);
 	CreateTemplate("data\\stragan.obj", "stragan", TexturedShader);
 
@@ -100,7 +102,7 @@ bool Window::ObjectsInit()
 
 	//podloga
 
-    CreateObject("cube", glm::vec3(-10*scale_x, -0.45f, 40*scale_z), glm::vec3(150*scale_x, 0.1, 160*scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f));
+    CreateObject("cube_2", glm::vec3(-10*scale_x, -0.45f, 40*scale_z), glm::vec3(150*scale_x, 0.1, 160*scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f));
 	CreateObject("house", glm::vec3(50.4f, 0.2f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f));
 	//CreateObject("castle", glm::vec3(40.4f, 0.2f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f));
 	//mury
