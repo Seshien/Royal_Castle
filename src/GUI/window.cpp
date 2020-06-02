@@ -84,7 +84,7 @@ bool Window::ShadersInit()
 bool Window::ObjectsInit()
 {
         
-	CreateTemplate("data\\Castle\\Castle OBJ.obj", "castle", TexturedShader);
+	//CreateTemplate("data\\Castle\\Castle OBJ.obj", "castle", TexturedShader);
 
 	CreateTemplate("data\\cube.obj", "cube", TexturedShader);
 	CreateTemplate("data\\medieval-house.obj", "house", TexturedShader);
@@ -102,7 +102,7 @@ bool Window::ObjectsInit()
 
     CreateObject("cube", glm::vec3(-10*scale_x, -0.45f, 40*scale_z), glm::vec3(150*scale_x, 0.1, 160*scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f));
 	CreateObject("house", glm::vec3(50.4f, 0.2f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f));
-	CreateObject("castle", glm::vec3(40.4f, 0.2f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f));
+	//CreateObject("castle", glm::vec3(40.4f, 0.2f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f));
 	//mury
  
 	CreateObject("mur", glm::vec3(140*scale_x, 0 * scale_y, 40*scale_z), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0,  glm::vec3(0.0f, 1.0f, 0.0f));                                //0.0f, 0.0f, 0.0f
@@ -134,11 +134,20 @@ std::shared_ptr<ModelTemplate> Window::FindTemplate(std::string name)
 {
 	for (auto temp : this->modelTemplates)
 		if (name == temp->GetName()) return temp;
+	std::cout << "Nie znaleziono pasuj¹cego template" << std::endl;
+	return nullptr;
 }
 
 void Window::CreateObject(std::string name, glm::vec3 position, glm::vec3 scale, glm::vec3 rotate, float angle, glm::vec3 color)
 {
-	this->objects.push_back(Model(FindTemplate(name), position, scale, rotate, angle, color));
+	std::shared_ptr<ModelTemplate> temp = FindTemplate(name);
+	if (temp == nullptr) 
+	{
+		std::cout << "B³¹d, obiekt nie zosta³ stworzony" << std::endl;
+		return;
+	}
+	else
+		this->objects.push_back(Model(temp, position, scale, rotate, angle, color));
 }
 
 void Window::ChangeViewSize(GLFWwindow* window, int width, int height)
