@@ -116,7 +116,7 @@ bool Window::ObjectsInit()
     scale_z = 0.3;
     for (int i = 0; i < 20; i += 3)
     {
-		CreateObject("stragan", glm::vec3(-103 * scale_x, -0.5f, i), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f,  glm::vec3(0.0f, 0.0f, 1.0f));
+		CreateObject("stragand", glm::vec3(-103 * scale_x, -0.5f, i), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f,  glm::vec3(0.0f, 0.0f, 1.0f));
 		CreateObject("stragan", glm::vec3(-103 * scale_x, -0.5f, i+1), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f,  glm::vec3(0.0f, 0.0f, 1.0f));
 
 		CreateObject("stragan", glm::vec3(-90 * scale_x, -0.5f, i), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), PI,  glm::vec3(0.0f, 0.0f, 1.0f));
@@ -134,7 +134,7 @@ std::shared_ptr<ModelTemplate> Window::FindTemplate(std::string name)
 {
 	for (auto temp : this->modelTemplates)
 		if (name == temp->GetName()) return temp;
-	std::cout << "Nie znaleziono pasuj¹cego template" << std::endl;
+	std::cout << "Error: Template not found" << std::endl;
 	return nullptr;
 }
 
@@ -143,7 +143,7 @@ void Window::CreateObject(std::string name, glm::vec3 position, glm::vec3 scale,
 	std::shared_ptr<ModelTemplate> temp = FindTemplate(name);
 	if (temp == nullptr) 
 	{
-		std::cout << "B³¹d, obiekt nie zosta³ stworzony" << std::endl;
+		std::cout << "Error: Object not created" << std::endl;
 		return;
 	}
 	else
