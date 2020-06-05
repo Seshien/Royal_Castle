@@ -160,6 +160,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GUI\create_objects.cpp" />
     <ClCompile Include="src\GUI\mesh.cpp" />
     <ClCompile Include="src\GUI\model.cpp" />
     <ClCompile Include="src\Dependiences\glad.c" />
@@ -170,8 +171,10 @@
     <ClCompile Include="src\lodepng.cpp" />
     <ClCompile Include="src\Royal Castle.cpp" />
     <ClCompile Include="src\GUI\modelTemplate.cpp" />
+    <ClCompile Include="Źródło.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GUI\create_objects.h" />
     <ClInclude Include="src\GUI\mesh.h" />
     <ClInclude Include="src\GUI\model.h" />
     <ClInclude Include="src\constants.h" />
