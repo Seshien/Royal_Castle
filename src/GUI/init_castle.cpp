@@ -1,4 +1,4 @@
-#include "create_objects.h"
+#include "init_castle.h"
 
 InitCastle::InitCastle()
 {
@@ -37,9 +37,10 @@ std::vector<std::shared_ptr<ModelTemplate>> InitCastle::LoadTemplates(std::share
 {
 	CreateTemplate("data\\cube.obj", "cube", shader);
 	CreateTemplate("data\\cube_2.obj", "cube_2", shader);
-	CreateTemplate("data\\medix`eval-house.obj", "house", shader);
+	CreateTemplate("data\\medieval-house.obj", "house", shader);
 	CreateTemplate("data\\mur.obj", "mur", shader);
 	CreateTemplate("data\\stragan.obj", "stragan", shader);
+
 	return this->_modelTemplates;
 }
 
@@ -69,7 +70,7 @@ std::vector<Model> InitCastle::LoadObjects()
 	scale_z = 0.3;
 	for (int i = 0; i < 20; i += 3)
 	{
-		CreateObject("stragand", glm::vec3(-103 * scale_x, -0.5f, i), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+		CreateObject("stragan", glm::vec3(-103 * scale_x, -0.5f, i), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 		CreateObject("stragan", glm::vec3(-103 * scale_x, -0.5f, i + 1), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 
 		CreateObject("stragan", glm::vec3(-90 * scale_x, -0.5f, i), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), PI, glm::vec3(0.0f, 0.0f, 1.0f));

@@ -91,7 +91,7 @@ bool Window::ObjectsInit()
 
     this->objects = Castle.LoadObjects();
 
-    return 1;
+    return 0;
 }
 
 

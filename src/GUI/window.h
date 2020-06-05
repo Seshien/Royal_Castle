@@ -13,13 +13,13 @@
 #include "modelTemplate.h"
 #include "model.h"
 #include "camera.h"
-#include "create_objects.h"
+#include "init_castle.h"
 
 
 void ChangeViewSize_call(GLFWwindow* window, int width, int height);
 void ProcessMouse_call(GLFWwindow* window, double xpos, double ypos);
 
-class Window : InitCastle
+class Window
 {
 public:
 	Window();
