@@ -1,18 +1,56 @@
-#include "create_objects.h"
+#include "init_castle.h"
 
-Create_objects::Create_objects()
+InitCastle::InitCastle()
 {
-	CreateTemplate("data\\cube.obj", "cube", TexturedShader);
-	CreateTemplate("data\\cube_2.obj", "cube_2", TexturedShader);
-	CreateTemplate("data\\medix`eval-house.obj", "house", TexturedShader);
-	CreateTemplate("data\\mur.obj", "mur", TexturedShader);
-	CreateTemplate("data\\stragan.obj", "stragan", TexturedShader);
+}
+
+void InitCastle::CreateTemplate(std::string path, std::string name, std::shared_ptr<ShaderProgram> shader)
+{
+	_modelTemplates.push_back(std::make_shared<ModelTemplate>(path, name, shader));
+}
+
+void InitCastle::CreateObject(std::string name, glm::vec3 position, glm::vec3 scale, glm::vec3 rotate, float angle, glm::vec3 color)
+{
+	std::shared_ptr<ModelTemplate> temp = FindTemplate(name);
+	if (temp == nullptr)
+	{
+		std::cout << "Error: Object not created" << std::endl;
+		return;
+	}
+	else
+		this->_objects.push_back(Model(temp, position, scale, rotate, angle, color));
+}
+std::shared_ptr<ModelTemplate> InitCastle::FindTemplate(std::string name)
+{
+	for (auto temp : this->_modelTemplates)
+		if (name == temp->GetName()) return temp;
+	std::cout << "Error: Template not found" << std::endl;
+	return nullptr;
+}
+
+std::unique_ptr<Model> InitCastle::LoadPlayer()
+{
+	return std::make_unique<Model>(FindTemplate("cube"), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 1.0f));
+}
+
+std::vector<std::shared_ptr<ModelTemplate>> InitCastle::LoadTemplates(std::shared_ptr<ShaderProgram> shader)
+{
+	CreateTemplate("data\\cube.obj", "cube", shader);
+	CreateTemplate("data\\cube_2.obj", "cube_2", shader);
+	CreateTemplate("data\\medieval-house.obj", "house", shader);
+	CreateTemplate("data\\mur.obj", "mur", shader);
+	CreateTemplate("data\\stragan.obj", "stragan", shader);
+
+	return this->_modelTemplates;
+}
+
+std::vector<Model> InitCastle::LoadObjects()
+{
 	scale_x = 0.2;
 	scale_y = 0.2;
 	scale_z = 0.2;
 
 	// ty
-	player_ptr = std::make_unique<Model>(FindTemplate("cube"), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 1.0f));
 
 	//podloga
 
@@ -32,35 +70,13 @@ Create_objects::Create_objects()
 	scale_z = 0.3;
 	for (int i = 0; i < 20; i += 3)
 	{
-		CreateObject("stragand", glm::vec3(-103 * scale_x, -0.5f, i), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+		CreateObject("stragan", glm::vec3(-103 * scale_x, -0.5f, i), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 		CreateObject("stragan", glm::vec3(-103 * scale_x, -0.5f, i + 1), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 
 		CreateObject("stragan", glm::vec3(-90 * scale_x, -0.5f, i), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), PI, glm::vec3(0.0f, 0.0f, 1.0f));
 		CreateObject("stragan", glm::vec3(-90 * scale_x, -0.5f, i + 1), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), PI, glm::vec3(0.0f, 0.0f, 1.0f));
 	}
 
+	return this->_objects;
 }
 
-void Create_objects::CreateTemplate(std::string path, std::string name, std::shared_ptr<ShaderProgram> shader)
-{
-	modelTemplates.push_back(std::make_shared<ModelTemplate>(path, name, shader));
-}
-
-void Create_objects::CreateObject(std::string name, glm::vec3 position, glm::vec3 scale, glm::vec3 rotate, float angle, glm::vec3 color)
-{
-	std::shared_ptr<ModelTemplate> temp = FindTemplate(name);
-	if (temp == nullptr)
-	{
-		std::cout << "Error: Object not created" << std::endl;
-		return;
-	}
-	else
-		this->objects.push_back(Model(temp, position, scale, rotate, angle, color));
-}
-std::shared_ptr<ModelTemplate> Create_objects::FindTemplate(std::string name)
-{
-	for (auto temp : this->modelTemplates)
-		if (name == temp->GetName()) return temp;
-	std::cout << "Error: Template not found" << std::endl;
-	return nullptr;
-}
