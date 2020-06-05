@@ -72,6 +72,7 @@ bool Window::ShadersInit()
 	glEnable(GL_DEPTH_TEST);
 	//glEnable(GL_BLEND);
 	glClearColor(1.0f, 0.8f, 0.8f, 1.0f);
+
     //myShader = new ShaderProgram("src\\Dependiences\\v_lambert.glsl", NULL, "src\\Dependiences\\f_lambert.glsl");
     TexturedShader = std::make_shared<ShaderProgram>("src\\Dependiences\\v_lamberttextured.glsl", "no", "src\\Dependiences\\f_lamberttextured.glsl");
 	//TexturedShader = std::make_shared<ShaderProgram>("src\\Dependiences\\v_simplest.glsl", "no", "src\\Dependiences\\f_simplest.glsl");
@@ -82,79 +83,74 @@ bool Window::ShadersInit()
 
 bool Window::ObjectsInit()
 {
-    Create_objects();
-    return 1;
+        
+	//CreateTemplate("data\\Castle\\Castle OBJ.obj", "castle", TexturedShader);
+
+	
+	CreateTemplate("data\\cube.obj", "cube", TexturedShader);
+	CreateTemplate("data\\cube_2.obj", "cube_2", TexturedShader);
+	CreateTemplate("data\\medix`eval-house.obj", "house", TexturedShader);
+	CreateTemplate("data\\mur.obj", "mur", TexturedShader);
+	CreateTemplate("data\\stragan.obj", "stragan", TexturedShader);
+
+	scale_x = 0.2;
+	scale_y = 0.2;
+	scale_z = 0.2;
+
+	// ty
+	player_ptr = std::make_unique<Model>(FindTemplate("cube"), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 1.0f));
+
+	//podloga
+
+    CreateObject("cube_2", glm::vec3(-10*scale_x, -0.45f, 40*scale_z), glm::vec3(150*scale_x, 0.1, 160*scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f));
+	CreateObject("house", glm::vec3(50.4f, 0.2f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f));
+	//CreateObject("castle", glm::vec3(40.4f, 0.2f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f));
+	//mury
+ 
+	CreateObject("mur", glm::vec3(140*scale_x, 0 * scale_y, 40*scale_z), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0,  glm::vec3(0.0f, 1.0f, 0.0f));                                //0.0f, 0.0f, 0.0f
+	CreateObject("mur", glm::vec3(0.0f, 0.0f, -120*scale_z), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), PI / 2, glm::vec3(0.0f, 1.0f, 0.0f));                                //-1.0f, 0.0f, 13.5f
+	CreateObject("mur", glm::vec3(-160*scale_x, 0.0f,40*scale_z), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), PI, glm::vec3(0.0f, 1.0f, 0.0f));                           //13.5f, 0.0f, 14.5f
+	CreateObject("mur", glm::vec3(-20*scale_x, 0.0f, 200*scale_z), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), PI * 3 / 2, glm::vec3(0.0f, 1.0f, 0.0f));                    //14.5f, 0.0f, 1.0f
+
+	//stragany
+    scale_x = 0.3;
+    scale_y = 0.3;
+    scale_z = 0.3;
+    for (int i = 0; i < 20; i += 3)
+    {
+		CreateObject("stragand", glm::vec3(-103 * scale_x, -0.5f, i), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f,  glm::vec3(0.0f, 0.0f, 1.0f));
+		CreateObject("stragan", glm::vec3(-103 * scale_x, -0.5f, i+1), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f,  glm::vec3(0.0f, 0.0f, 1.0f));
+
+		CreateObject("stragan", glm::vec3(-90 * scale_x, -0.5f, i), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), PI,  glm::vec3(0.0f, 0.0f, 1.0f));
+		CreateObject("stragan", glm::vec3(-90 * scale_x, -0.5f, i + 1), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), PI,  glm::vec3(0.0f, 0.0f, 1.0f));
+    }
+    return 0;
 }
-//void Window::ObjectsInit()
-//{
-//        
-//	//CreateTemplate("data\\Castle\\Castle OBJ.obj", "castle", TexturedShader);
-//
-//	
-//	CreateTemplate("data\\cube.obj", "cube", TexturedShader);
-//	CreateTemplate("data\\cube_2.obj", "cube_2", TexturedShader);
-//	CreateTemplate("data\\medix`eval-house.obj", "house", TexturedShader);
-//	CreateTemplate("data\\mur.obj", "mur", TexturedShader);
-//	CreateTemplate("data\\stragan.obj", "stragan", TexturedShader);
-//
-//	scale_x = 0.2;
-//	scale_y = 0.2;
-//	scale_z = 0.2;
-//
-//	// ty
-//	player_ptr = std::make_unique<Model>(FindTemplate("cube"), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 1.0f));
-//
-//	//podloga
-//
-//    CreateObject("cube_2", glm::vec3(-10*scale_x, -0.45f, 40*scale_z), glm::vec3(150*scale_x, 0.1, 160*scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f));
-//	CreateObject("house", glm::vec3(50.4f, 0.2f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f));
-//	//CreateObject("castle", glm::vec3(40.4f, 0.2f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f));
-//	//mury
-// 
-//	CreateObject("mur", glm::vec3(140*scale_x, 0 * scale_y, 40*scale_z), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0,  glm::vec3(0.0f, 1.0f, 0.0f));                                //0.0f, 0.0f, 0.0f
-//	CreateObject("mur", glm::vec3(0.0f, 0.0f, -120*scale_z), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), PI / 2, glm::vec3(0.0f, 1.0f, 0.0f));                                //-1.0f, 0.0f, 13.5f
-//	CreateObject("mur", glm::vec3(-160*scale_x, 0.0f,40*scale_z), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), PI, glm::vec3(0.0f, 1.0f, 0.0f));                           //13.5f, 0.0f, 14.5f
-//	CreateObject("mur", glm::vec3(-20*scale_x, 0.0f, 200*scale_z), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), PI * 3 / 2, glm::vec3(0.0f, 1.0f, 0.0f));                    //14.5f, 0.0f, 1.0f
-//
-//	//stragany
-//    scale_x = 0.3;
-//    scale_y = 0.3;
-//    scale_z = 0.3;
-//    for (int i = 0; i < 20; i += 3)
-//    {
-//		CreateObject("stragand", glm::vec3(-103 * scale_x, -0.5f, i), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f,  glm::vec3(0.0f, 0.0f, 1.0f));
-//		CreateObject("stragan", glm::vec3(-103 * scale_x, -0.5f, i+1), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f,  glm::vec3(0.0f, 0.0f, 1.0f));
-//
-//		CreateObject("stragan", glm::vec3(-90 * scale_x, -0.5f, i), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), PI,  glm::vec3(0.0f, 0.0f, 1.0f));
-//		CreateObject("stragan", glm::vec3(-90 * scale_x, -0.5f, i + 1), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), PI,  glm::vec3(0.0f, 0.0f, 1.0f));
-//    }
-//    return 0;
-//}
-//
-//void Window::CreateTemplate(std::string path, std::string name, std::shared_ptr<ShaderProgram> shader)
-//{
-//	modelTemplates.push_back(std::make_shared<ModelTemplate>(path, name, shader));
-//}
-//
-//std::shared_ptr<ModelTemplate> Window::FindTemplate(std::string name)
-//{
-//	for (auto temp : this->modelTemplates)
-//		if (name == temp->GetName()) return temp;
-//	std::cout << "Error: Template not found" << std::endl;
-//	return nullptr;
-//}
-//
-//void Window::CreateObject(std::string name, glm::vec3 position, glm::vec3 scale, glm::vec3 rotate, float angle, glm::vec3 color)
-//{
-//	std::shared_ptr<ModelTemplate> temp = FindTemplate(name);
-//	if (temp == nullptr) 
-//	{
-//		std::cout << "Error: Object not created" << std::endl;
-//		return;
-//	}
-//	else
-//		this->objects.push_back(Model(temp, position, scale, rotate, angle, color));
-//}
+
+void Window::CreateTemplate(std::string path, std::string name, std::shared_ptr<ShaderProgram> shader)
+{
+	modelTemplates.push_back(std::make_shared<ModelTemplate>(path, name, shader));
+}
+
+std::shared_ptr<ModelTemplate> Window::FindTemplate(std::string name)
+{
+	for (auto temp : this->modelTemplates)
+		if (name == temp->GetName()) return temp;
+	std::cout << "Error: Template not found" << std::endl;
+	return nullptr;
+}
+
+void Window::CreateObject(std::string name, glm::vec3 position, glm::vec3 scale, glm::vec3 rotate, float angle, glm::vec3 color)
+{
+	std::shared_ptr<ModelTemplate> temp = FindTemplate(name);
+	if (temp == nullptr) 
+	{
+		std::cout << "Error: Object not created" << std::endl;
+		return;
+	}
+	else
+		this->objects.push_back(Model(temp, position, scale, rotate, angle, color));
+}
 
 void Window::ChangeViewSize(GLFWwindow* window, int width, int height)
 {
@@ -203,7 +199,7 @@ void Window::RenderWindow()
 	auto color = player_ptr->GetColor();
 	glUniform4f(TexturedShader->u("color"), color.x, color.y, color.z, 1);
 	glUniformMatrix4fv(TexturedShader->u("M"), 1, false, glm::value_ptr(player_ptr->GetMatrix()));
-    player_ptr->DrawWire();
+	player_ptr->DrawWire();
   
     for (auto model : objects)
     {
@@ -283,7 +279,7 @@ void Window::ProcessMovement()
 			if (model.Collision(camera_ptr->cameraCoords)) camera_ptr->ChangePosition(UP, przesuniecie);
 	}
 
-    player_ptr->SetPosition(camera_ptr->cameraCoords);
+	player_ptr->SetPosition(camera_ptr->cameraCoords);
 }
 
 void Window::ProcessOther()

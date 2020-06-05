@@ -45,12 +45,6 @@
     <ClCompile Include="src\GUI\modelTemplate.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Źródło.cpp">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GUI\create_objects.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GUI\window.h">
@@ -80,16 +74,9 @@
     <ClInclude Include="src\GUI\modelTemplate.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="src\GUI\create_objects.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Dependiences\f_lamberttextured.glsl">
-      <Filter>Pliki zasobów</Filter>
-    </None>
-    <None Include="src\Dependiences\v_lamberttextured.glsl">
-      <Filter>Pliki zasobów</Filter>
-    </None>
+    <None Include="src\Dependiences\f_lamberttextured.glsl" />
+    <None Include="src\Dependiences\v_lamberttextured.glsl" />
   </ItemGroup>
 </Project>

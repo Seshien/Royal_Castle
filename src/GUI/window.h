@@ -13,13 +13,12 @@
 #include "modelTemplate.h"
 #include "model.h"
 #include "camera.h"
-#include "create_objects.h"
 
 
 void ChangeViewSize_call(GLFWwindow* window, int width, int height);
 void ProcessMouse_call(GLFWwindow* window, double xpos, double ypos);
 
-class Window : Create_objects
+class Window
 {
 public:
 	Window();
@@ -27,10 +26,11 @@ public:
 	bool StartWindow();
 	void ChangeViewSize(GLFWwindow* window, int width, int height);
 	void ProcessMouse(GLFWwindow* window, double xpos, double ypos);
+	
 
 	std::unique_ptr<Camera> camera_ptr;
 	GLFWwindow* window_ptr;
-//std::shared_ptr<ShaderProgram> TexturedShader;
+	std::shared_ptr<ShaderProgram> TexturedShader;
 	std::shared_ptr<ShaderProgram> ColorShader;
 
 private:
@@ -44,11 +44,11 @@ private:
 	bool ShadersInit();
 	bool ObjectsInit();
 
-	//void CreateTemplate(std::string path, std::string name, std::shared_ptr<ShaderProgram> shader);
+	void CreateTemplate(std::string path, std::string name, std::shared_ptr<ShaderProgram> shader);
 
-//	std::shared_ptr<ModelTemplate> FindTemplate(std::string name);
+	std::shared_ptr<ModelTemplate> FindTemplate(std::string name);
 
-//	void CreateObject(std::string name, glm::vec3 position, glm::vec3 scale, glm::vec3 rotate, float angle, glm::vec3 color);
+	void CreateObject(std::string name, glm::vec3 position, glm::vec3 scale, glm::vec3 rotate, float angle, glm::vec3 color);
 
 	void ProcessInput();
 
@@ -59,10 +59,9 @@ private:
 	void ProcessMovement();
 
 
-	ShaderProgram *sp;
-//	std::vector<Model> objects;
-//	std::vector<std::shared_ptr<ModelTemplate>> modelTemplates;
-//	std::unique_ptr<Model> player_ptr;
+	std::vector<Model> objects;
+	std::vector<std::shared_ptr<ModelTemplate>> modelTemplates;
+	std::unique_ptr<Model> player_ptr;
 	float timer;
 	float frameTime;
 	float lastFrameTime;
