@@ -82,7 +82,7 @@ bool Window::ShadersInit()
 
 bool Window::ObjectsInit()
 {
-    Castle = InitCastle();
+    auto Castle = InitCastle();
 
 
     this->modelTemplates = Castle.LoadTemplates(this->TexturedShader);
