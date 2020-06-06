@@ -11,6 +11,8 @@ Camera::Camera()
 	yaw = -90.0f;
 	pitch = 0.0f;
 
+	noclip = false;
+
 	first_time = true;
 
 	cameraCoords = glm::vec3(0.0f, 5.0f, 0.0f);
@@ -36,6 +38,8 @@ void Camera::ChangePosition(CameraMoveType type, float time)
 		cameraCoords += cameraUpCoords * velocity;
 	if (type == DOWN)
 		cameraCoords -= cameraUpCoords * velocity;
+	if (!noclip)
+		cameraCoords.y = 0.5f;
 }
 
 void Camera::ChangeViewPosition(float x, float y)
@@ -83,6 +87,11 @@ void Camera::DecreaseSpeed()
 void Camera::ResetSpeed()
 {
 	this->speed = 1.0f;
+}
+
+void Camera::SetFastSpeed()
+{
+	this->speed = 15.0f;
 }
 
 void Camera::printCoords()

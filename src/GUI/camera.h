@@ -25,6 +25,7 @@ public:
 	void IncreaseSpeed();
 	void DecreaseSpeed();
 	void ResetSpeed();
+    void SetFastSpeed();
 
 	void printCoords();
 
@@ -35,7 +36,10 @@ public:
     glm::vec3 cameraUpCoords;
     glm::vec3 cameraRightCoords;
 
+    bool noclip;
+
 private:
+
 
 	void UpdateView();
 

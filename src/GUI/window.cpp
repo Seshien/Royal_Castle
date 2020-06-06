@@ -147,8 +147,10 @@ void Window::RenderWindow()
     for (auto model : objects)
     {
 		color = model.GetColor();
+        //tutaj dajemy mu color + macierz modelu
 		glUniform4f(TexturedShader->u("color"), color.x, color.y, color.z, 1);
         glUniformMatrix4fv(TexturedShader->u("M"), 1, false, glm::value_ptr(model.GetMatrix()));
+        // tutaj robimy reszte
         model.Draw();
     }
 
@@ -187,39 +189,39 @@ void Window::ProcessMovement()
 	{
 		camera_ptr->ChangePosition(FORWARD, przesuniecie);
 		for (auto model : objects)
-			if (model.Collision(camera_ptr->cameraCoords)) camera_ptr->ChangePosition(BACKWARD, przesuniecie);
+			if (!camera_ptr->noclip && model.Collision(camera_ptr->cameraCoords)) camera_ptr->ChangePosition(BACKWARD, przesuniecie);
 	}
 	if (glfwGetKey(window_ptr, GLFW_KEY_S) == GLFW_PRESS)
 	{
 		camera_ptr->ChangePosition(BACKWARD, przesuniecie);
 		for (auto model : objects)
-			if (model.Collision(camera_ptr->cameraCoords)) camera_ptr->ChangePosition(FORWARD, przesuniecie);
+			if (!camera_ptr->noclip && model.Collision(camera_ptr->cameraCoords)) camera_ptr->ChangePosition(FORWARD, przesuniecie);
 	}
 	if (glfwGetKey(window_ptr, GLFW_KEY_A) == GLFW_PRESS)
 	{
 		camera_ptr->ChangePosition(LEFT, przesuniecie);
 		for (auto model : objects)
-			if (model.Collision(camera_ptr->cameraCoords)) camera_ptr->ChangePosition(RIGHT, przesuniecie);
+			if (!camera_ptr->noclip && model.Collision(camera_ptr->cameraCoords)) camera_ptr->ChangePosition(RIGHT, przesuniecie);
 	}
 	if (glfwGetKey(window_ptr, GLFW_KEY_D) == GLFW_PRESS)
 	{
 		camera_ptr->ChangePosition(RIGHT, przesuniecie);
 		for (auto model : objects)
-			if (model.Collision(camera_ptr->cameraCoords)) camera_ptr->ChangePosition(LEFT, przesuniecie);
+			if (!camera_ptr->noclip && model.Collision(camera_ptr->cameraCoords)) camera_ptr->ChangePosition(LEFT, przesuniecie);
 	}
 
 	if (glfwGetKey(window_ptr, GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
 		camera_ptr->ChangePosition(UP, przesuniecie);
 		for (auto model : objects)
-			if (model.Collision(camera_ptr->cameraCoords)) camera_ptr->ChangePosition(DOWN, przesuniecie);
+			if (!camera_ptr->noclip && model.Collision(camera_ptr->cameraCoords)) camera_ptr->ChangePosition(DOWN, przesuniecie);
 	}
 
 	if (glfwGetKey(window_ptr, GLFW_KEY_C) == GLFW_PRESS)
 	{
 		camera_ptr->ChangePosition(DOWN, przesuniecie);
 		for (auto model : objects)
-			if (model.Collision(camera_ptr->cameraCoords)) camera_ptr->ChangePosition(UP, przesuniecie);
+			if (!camera_ptr->noclip && model.Collision(camera_ptr->cameraCoords)) camera_ptr->ChangePosition(UP, przesuniecie);
 	}
 
     player_ptr->SetPosition(camera_ptr->cameraCoords);
@@ -238,6 +240,12 @@ void Window::ProcessOther()
 
 	if (glfwGetKey(window_ptr, GLFW_KEY_KP_MULTIPLY) == GLFW_PRESS)
 		camera_ptr->ResetSpeed();
+
+    if (glfwGetKey(window_ptr, GLFW_KEY_H) == GLFW_PRESS)
+        camera_ptr->noclip=!camera_ptr->noclip;
+
+    if (glfwGetKey(window_ptr, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+        camera_ptr->SetFastSpeed();
 }
 
 void Window::ClearWindow()
