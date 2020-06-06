@@ -27,9 +27,6 @@
     <ClCompile Include="src\GUI\shaderprogram.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="src\lodepng.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
     <ClCompile Include="src\GUI\camera.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
@@ -59,9 +56,6 @@
     <ClInclude Include="src\constants.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="src\lodepng.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
     <ClInclude Include="src\GUI\camera.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
@@ -82,7 +76,11 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Dependiences\f_lamberttextured.glsl" />
-    <None Include="src\Dependiences\v_lamberttextured.glsl" />
+    <None Include="src\Dependiences\f_lamberttextured.glsl">
+      <Filter>Pliki zasobów</Filter>
+    </None>
+    <None Include="src\Dependiences\v_lamberttextured.glsl">
+      <Filter>Pliki zasobów</Filter>
+    </None>
   </ItemGroup>
 </Project>

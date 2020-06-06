@@ -24,6 +24,7 @@ public:
 	void ChangeRotation(glm::vec3 rotate, float angle);
 	void SetRotation(glm::vec3 rotate, float angle);
 
+	
 
 	void SetMatrix(glm::vec3 position, glm::vec3 scale, glm::vec3 rotate, float angle);
 	glm::mat4 GetMatrix() { return this->mat; }

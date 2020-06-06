@@ -40,7 +40,7 @@ std::vector<std::shared_ptr<ModelTemplate>> InitCastle::LoadTemplates(std::share
 	CreateTemplate("data\\medieval-house.obj", "house", shader);
 	CreateTemplate("data\\mur.obj", "mur", shader);
 	CreateTemplate("data\\stragan.obj", "stragan", shader);
-
+	CreateTemplate("data\\Castle\\Castle OBJ.obj", "castle", shader);
 	return this->_modelTemplates;
 }
 
@@ -56,7 +56,7 @@ std::vector<Model> InitCastle::LoadObjects()
 
 	CreateObject("cube_2", glm::vec3(-10 * scale_x, -0.45f, 40 * scale_z), glm::vec3(150 * scale_x, 0.1, 160 * scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f));
 	CreateObject("house", glm::vec3(50.4f, 0.2f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f));
-	//CreateObject("castle", glm::vec3(40.4f, 0.2f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f));
+	CreateObject("castle", glm::vec3(40.4f, 0.2f, 0.0f), glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f));
 	//mury
 
 	CreateObject("mur", glm::vec3(140 * scale_x, 0 * scale_y, 40 * scale_z), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f));                                //0.0f, 0.0f, 0.0f
@@ -68,15 +68,26 @@ std::vector<Model> InitCastle::LoadObjects()
 	scale_x = 0.3;
 	scale_y = 0.3;
 	scale_z = 0.3;
+	n = 1;
 	for (int i = 0; i < 20; i += 3)
 	{
 		CreateObject("stragan", glm::vec3(-103 * scale_x, -0.5f, i), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+		CreateSources(glm::vec3(-103 * scale_x, -0.5f, i), glm::vec3(1.0f, 0.0f, 0.0f));
 		CreateObject("stragan", glm::vec3(-103 * scale_x, -0.5f, i + 1), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-
+		CreateSources(glm::vec3(-103 * scale_x, -0.5f, i), glm::vec3(1.0f, 0.0f, 0.0f));
 		CreateObject("stragan", glm::vec3(-90 * scale_x, -0.5f, i), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), PI, glm::vec3(0.0f, 0.0f, 1.0f));
+		CreateSources(glm::vec3(-103 * scale_x, -0.5f, i), glm::vec3(1.0f, 0.0f, 0.0f));
 		CreateObject("stragan", glm::vec3(-90 * scale_x, -0.5f, i + 1), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), PI, glm::vec3(0.0f, 0.0f, 1.0f));
+		CreateSources(glm::vec3(-103 * scale_x, -0.5f, i), glm::vec3(1.0f, 0.0f, 0.0f));
 	}
 
 	return this->_objects;
 }
 
+void InitCastle::CreateSources(glm::vec3 pos, glm::vec3 col)
+{
+	Light a;
+	a.color = col;
+	a.pos = pos;
+	sources[n++] = a;
+}
