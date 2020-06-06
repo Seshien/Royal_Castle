@@ -168,7 +168,6 @@
     <ClCompile Include="src\GUI\camera.cpp" />
     <ClCompile Include="src\GUI\shaderprogram.cpp" />
     <ClCompile Include="src\GUI\window.cpp" />
-    <ClCompile Include="src\lodepng.cpp" />
     <ClCompile Include="src\Royal Castle.cpp" />
     <ClCompile Include="src\GUI\modelTemplate.cpp" />
   </ItemGroup>
@@ -181,7 +180,6 @@
     <ClInclude Include="src\GUI\camera.h" />
     <ClInclude Include="src\GUI\shaderprogram.h" />
     <ClInclude Include="src\GUI\window.h" />
-    <ClInclude Include="src\lodepng.h" />
     <ClInclude Include="src\GUI\modelTemplate.h" />
   </ItemGroup>
   <ItemGroup>

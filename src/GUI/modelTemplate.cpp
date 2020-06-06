@@ -19,7 +19,6 @@ Place, Fifth Floor, Boston, MA  02110 - 1301  USA
 
 #include "modelTemplate.h"
 
-
 unsigned int TextureFromFile(const char* path, const std::string& directory)
 {
     std::string filename = std::string(path);
@@ -145,7 +144,6 @@ Mesh ModelTemplate::processMesh(aiMesh* mesh, const aiScene* scene)
         else
         {
             //tangent
-
             vector.x = mesh->mTangents[i].x;
             vector.y = mesh->mTangents[i].y;
             vector.z = mesh->mTangents[i].z;

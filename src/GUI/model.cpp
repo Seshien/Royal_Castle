@@ -9,6 +9,8 @@ Model::Model(std::shared_ptr<ModelTemplate> parent, glm::vec3 position, glm::vec
 	
 }
 
+
+
 void Model::Draw()
 {
 	this->parent->Draw();

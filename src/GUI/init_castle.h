@@ -17,11 +17,18 @@ public:
 	InitCastle();
 	void CreateObject(std::string name, glm::vec3 position, glm::vec3 scale, glm::vec3 rotate, float angle, glm::vec3 color);
 	void CreateTemplate(std::string path, std::string name, std::shared_ptr<ShaderProgram> shader);
+	void CreateSources(glm::vec3, glm::vec3);
 	std::shared_ptr<ModelTemplate> FindTemplate(std::string name);
 
 	std::unique_ptr<Model> LoadPlayer();
 	std::vector<std::shared_ptr<ModelTemplate>> LoadTemplates(std::shared_ptr<ShaderProgram> shader);
 	std::vector<Model> LoadObjects();
+	struct Light {
+		glm::vec3 pos;
+		glm::vec3 color;
+	};
+	int n;
+	Light sources[256];
 
 private:
 

@@ -82,7 +82,7 @@ bool Window::ShadersInit()
 
 bool Window::ObjectsInit()
 {
-    auto Castle = InitCastle();
+    Castle = InitCastle();
 
 
     this->modelTemplates = Castle.LoadTemplates(this->TexturedShader);
@@ -139,18 +139,34 @@ void Window::RenderWindow()
 
 
     //MODELE
+  
 	auto color = player_ptr->GetColor();
-	glUniform4f(TexturedShader->u("color"), color.x, color.y, color.z, 1);
-	glUniformMatrix4fv(TexturedShader->u("M"), 1, false, glm::value_ptr(player_ptr->GetMatrix()));
+ 
+	
+	//glUniformMatrix4fv(TexturedShader->u("M"), 1, false, glm::value_ptr(player_ptr->GetMatrix()));
     player_ptr->DrawWire();
   
     for (auto model : objects)
     {
+
+        glm::mat3 M;
+        M = glm::inverseTranspose(model.GetMatrix());
+
 		color = model.GetColor();
-        //tutaj dajemy mu color + macierz modelu
-		glUniform4f(TexturedShader->u("color"), color.x, color.y, color.z, 1);
+        glUniform1i(TexturedShader->u("TEX"), 0);
+        glUniform1i(TexturedShader->u("LightsCount"), Castle.n);
+        glUniform3fv(TexturedShader->u("CameraPos"), 1, glm::value_ptr(camera_ptr->cameraCoords));
+		//glUniform4f(TexturedShader->u("color"), color.x, color.y, color.z, 1);
         glUniformMatrix4fv(TexturedShader->u("M"), 1, false, glm::value_ptr(model.GetMatrix()));
-        // tutaj robimy reszte
+        glUniformMatrix3fv(TexturedShader->u("NormalMatrix"), 1, false, glm::value_ptr(M));
+
+        for (int i = 0; i < Castle.n; i++)
+        {
+            std::string a = "Lights[" + std::to_string(i) + "].Color";
+            std::string b = "Lights[" + std::to_string(i) + "].Pos";
+            glUniform3fv(TexturedShader->u(a.c_str()),1, glm::value_ptr(Castle.sources[i].color));
+            glUniform3fv(TexturedShader->u(b.c_str()),1, glm::value_ptr(Castle.sources[i].pos));
+        }
         model.Draw();
     }
 

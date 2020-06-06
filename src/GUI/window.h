@@ -28,6 +28,7 @@ public:
 	void ChangeViewSize(GLFWwindow* window, int width, int height);
 	void ProcessMouse(GLFWwindow* window, double xpos, double ypos);
 
+	InitCastle Castle;
 	std::unique_ptr<Camera> camera_ptr;
 	GLFWwindow* window_ptr;
     std::shared_ptr<ShaderProgram> TexturedShader;
