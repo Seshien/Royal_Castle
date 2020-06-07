@@ -28,12 +28,17 @@ public:
 
 	void SetMatrix(glm::vec3 position, glm::vec3 scale, glm::vec3 rotate, float angle);
 	glm::mat4 GetMatrix() { return this->mat; }
+	glm::mat4 GetInvMatrix() { return this->invMat; }
 	glm::vec3 GetColor() { return this->color; }
+
 private:
+
 	void SetMatrix();
+
 	std::shared_ptr<ModelTemplate> parent;
 
 	glm::mat4 mat;
+	glm::mat4 invMat;
 	glm::vec3 color;
 	glm::vec3 position;
 	glm::vec3 rotation;

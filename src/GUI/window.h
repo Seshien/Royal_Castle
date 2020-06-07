@@ -21,6 +21,7 @@ void ProcessMouse_call(GLFWwindow* window, double xpos, double ypos);
 
 class Window
 {
+
 public:
 	Window();
 
@@ -28,7 +29,7 @@ public:
 	void ChangeViewSize(GLFWwindow* window, int width, int height);
 	void ProcessMouse(GLFWwindow* window, double xpos, double ypos);
 
-	InitCastle Castle;
+	std::unique_ptr<InitCastle> initcastle;
 	std::unique_ptr<Camera> camera_ptr;
 	GLFWwindow* window_ptr;
     std::shared_ptr<ShaderProgram> TexturedShader;
@@ -64,6 +65,7 @@ private:
 	std::vector<Model> objects;
 	std::vector<std::shared_ptr<ModelTemplate>> modelTemplates;
 	std::unique_ptr<Model> player_ptr;
+	std::vector<Light> lights;
 	float timer;
 	float frameTime;
 	float lastFrameTime;

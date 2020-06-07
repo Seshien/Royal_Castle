@@ -7,6 +7,12 @@ in vec3 i_coord;
 
 out vec4 pixelColor; //Zmienna wyjsciowa fragment shadera. Zapisuje sie do niej ostateczny (prawie) kolor piksela
 
+struct Material {
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;    
+    float shininess;
+}; 
 
 struct Light
 {
@@ -24,7 +30,7 @@ uniform vec3 CameraPos;
 
 void main()
 {
-  vec4 color = vec4(0.0025, 0.0025, 0.0025, 1.0) * texture(TEX, i_tc);
+  vec4 color = vec4(0.025, 0.025, 0.025, 1.0) * texture(TEX, i_tc);
   vec3 normal = NormalMatrix * i_nl;
   vec3 ViewDir = normalize(CameraPos - i_coord);
 

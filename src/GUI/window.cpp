@@ -68,9 +68,9 @@ bool Window::WindowInit()
 
 bool Window::ShadersInit()
 {
-    //glEnable(GL_DEPTH_CLAMP);
+    glEnable(GL_DEPTH_CLAMP);
 	glEnable(GL_DEPTH_TEST);
-	//glEnable(GL_BLEND);
+	glEnable(GL_BLEND);
 	glClearColor(1.0f, 0.8f, 0.8f, 1.0f);
     //myShader = new ShaderProgram("src\\Dependiences\\v_lambert.glsl", NULL, "src\\Dependiences\\f_lambert.glsl");
     TexturedShader = std::make_shared<ShaderProgram>("src\\Dependiences\\v_lamberttextured.glsl", "no", "src\\Dependiences\\f_lamberttextured.glsl");
@@ -82,14 +82,16 @@ bool Window::ShadersInit()
 
 bool Window::ObjectsInit()
 {
-    auto Castle = InitCastle();
+    initcastle = std::make_unique<InitCastle>(this->TexturedShader);
 
 
-    this->modelTemplates = Castle.LoadTemplates(this->TexturedShader);
+    this->modelTemplates = initcastle->LoadTemplates();
     
-    this->player_ptr = Castle.LoadPlayer();
+    this->player_ptr = initcastle->LoadPlayer();
 
-    this->objects = Castle.LoadObjects();
+    this->objects = initcastle->LoadObjects();
+
+    this->lights = initcastle->LoadLights();
 
     return 0;
 }
@@ -137,6 +139,15 @@ void Window::RenderWindow()
     glUniformMatrix4fv(TexturedShader->u("P"), 1, false, glm::value_ptr(P)); //Za³aduj do programu cieniuj¹cego macierz rzutowania
     glUniformMatrix4fv(TexturedShader->u("V"), 1, false, glm::value_ptr(V)); //Za³aduj do programu cieniuj¹cego macierz widoku
 
+    glUniform1i(TexturedShader->u("LightsCount"), lights.size());
+    glUniform3fv(TexturedShader->u("CameraPos"), 1, glm::value_ptr(camera_ptr->cameraCoords));
+    for (int i = 0; i < lights.size(); i++)
+    {
+        std::string a = "Lights[" + std::to_string(i) + "].Color";
+        std::string b = "Lights[" + std::to_string(i) + "].Pos";
+        glUniform3fv(TexturedShader->u(a.c_str()), 1, glm::value_ptr(this->lights[i].color));
+        glUniform3fv(TexturedShader->u(b.c_str()), 1, glm::value_ptr(this->lights[i].pos));
+    }
 
     //MODELE
   
@@ -149,24 +160,12 @@ void Window::RenderWindow()
     for (auto model : objects)
     {
 
-        glm::mat3 M;
-        M = glm::inverseTranspose(model.GetMatrix());
-
-		color = model.GetColor();
-        glUniform1i(TexturedShader->u("TEX"), 0);
-        glUniform1i(TexturedShader->u("LightsCount"), Castle.n);
-        glUniform3fv(TexturedShader->u("CameraPos"), 1, glm::value_ptr(camera_ptr->cameraCoords));
+		//color = model.GetColor();
+        // glUniform1i(TexturedShader->u("TEX"), 0);
 		//glUniform4f(TexturedShader->u("color"), color.x, color.y, color.z, 1);
         glUniformMatrix4fv(TexturedShader->u("M"), 1, false, glm::value_ptr(model.GetMatrix()));
-        glUniformMatrix3fv(TexturedShader->u("NormalMatrix"), 1, false, glm::value_ptr(M));
+        glUniformMatrix3fv(TexturedShader->u("NormalMatrix"), 1, false, glm::value_ptr(model.GetInvMatrix()));
 
-        for (int i = 0; i < Castle.n; i++)
-        {
-            std::string a = "Lights[" + std::to_string(i) + "].Color";
-            std::string b = "Lights[" + std::to_string(i) + "].Pos";
-            glUniform3fv(TexturedShader->u(a.c_str()),1, glm::value_ptr(Castle.sources[i].color));
-            glUniform3fv(TexturedShader->u(b.c_str()),1, glm::value_ptr(Castle.sources[i].pos));
-        }
         model.Draw();
     }
 
@@ -258,7 +257,10 @@ void Window::ProcessOther()
 		camera_ptr->ResetSpeed();
 
     if (glfwGetKey(window_ptr, GLFW_KEY_H) == GLFW_PRESS)
-        camera_ptr->noclip=!camera_ptr->noclip;
+        camera_ptr->noclip=false;
+
+    if (glfwGetKey(window_ptr, GLFW_KEY_T) == GLFW_PRESS)
+        camera_ptr->noclip = true;
 
     if (glfwGetKey(window_ptr, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
         camera_ptr->SetFastSpeed();

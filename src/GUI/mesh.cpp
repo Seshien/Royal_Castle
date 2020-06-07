@@ -119,19 +119,26 @@ void Mesh::Draw(std::shared_ptr<ShaderProgram> shader)
         // retrieve texture number (the N in diffuse_textureN)
         std::string number;
         std::string name = textures[i].type;
+		//czyli taka najprostrza tekstura,
         if (name == "texture_diffuse")
-            number = std::to_string(diffuseNr++);
+		{
+			//number = std::to_string(diffuseNr++);
+			glUniform1i(shader->u("TEX"), i);
+			glBindTexture(GL_TEXTURE_2D, textures[i].id);
+		}
+		//Tutaj patrzymy na to czy tekstura odbija swiatla
         else if (name == "texture_specular")
             number = std::to_string(specularNr++);
+		//Tutaj jest ta purpurowa, mowiaca o powierzchni
 		else if (name == "texture_normal")
 			number = std::to_string(normalNr++); // transfer unsigned int to stream
+		//Tutaj jest o wypuklosciach
 		else if (name == "texture_height")
 			number = std::to_string(heightNr++); // transfer unsigned int to stream
-
+		name = "material." + name + number;
         //shader.setFloat(("material." + name + number).c_str(), i);
-		glUniform1i(glGetUniformLocation(shader->GetID(), (name + number).c_str()), i);
-		//glUniform1i(shader->u(("material." + name + number).c_str()), i);
-        glBindTexture(GL_TEXTURE_2D, textures[i].id);
+		//glUniform1i(glGetUniformLocation(shader->GetID(), (name + number).c_str()), i);
+
     }
 
     // draw mesh
