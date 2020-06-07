@@ -7,12 +7,6 @@ in vec3 i_coord;
 
 out vec4 pixelColor; //Zmienna wyjsciowa fragment shadera. Zapisuje sie do niej ostateczny (prawie) kolor piksela
 
-struct Material {
-    vec3 ambient;
-    vec3 diffuse;
-    vec3 specular;    
-    float shininess;
-}; 
 
 struct Light
 {
