@@ -13,15 +13,15 @@ layout (location=2) in vec2 texCoord; //wspó³rzêdne teksturowania
 
 
 //Zmienne interpolowane
-out vec2 i_tc;
-out vec3 i_nl;
-out vec3 i_coords;
+out vec2 input_texcoords;
+out vec3 input_normal;
+out vec3 input_coords;
 
 
 void main() 
 {
-    i_nl = normal;
-    i_tc = texCoord;
-    i_coords = vec3(M * vec4(vertex, 1.0));
+    input_normal = normal;
+    input_texcoords = texCoord;
+    input_coords = vec3(M * vec4(vertex, 1.0));
     gl_Position = P * V * M * vec4(vertex, 1.0);
 }

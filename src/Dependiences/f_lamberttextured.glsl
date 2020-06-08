@@ -1,8 +1,8 @@
 #version 330
 
-in vec3 i_nl;
-in vec2 i_tc;
-in vec3 i_coord;
+in vec2 input_texcoords;
+in vec3 input_normal;
+in vec3 input_coords;
 
 
 out vec4 pixelColor; //Zmienna wyjsciowa fragment shadera. Zapisuje sie do niej ostateczny (prawie) kolor piksela
@@ -24,23 +24,25 @@ uniform vec3 CameraPos;
 
 void main()
 {
-  vec4 color = vec4(0.025, 0.025, 0.025, 1.0) * texture(TEX, i_tc);
-  vec3 normal = NormalMatrix * i_nl;
-  vec3 ViewDir = normalize(CameraPos - i_coord);
+  vec4 color = vec4(0.025, 0.025, 0.025, 1.0) * texture(TEX, input_texcoords);
+  vec3 normal = normalize(NormalMatrix * input_normal);
+  vec3 ViewDir = normalize(CameraPos - input_coords);
 
   for(int i = 0; i < LightsCount; i++)
   {
-    vec3 LightDir = normalize(Lights[i].Pos - i_coord);  
+
+    vec3 LightDir = normalize(Lights[i].Pos - input_coords);  
     vec3 ReflectDir = reflect(-LightDir, normal);
-    float Dist = distance(i_coord, Lights[i].Pos);
+    float Dist = distance(input_coords, Lights[i].Pos);
     
     float diff = max(dot(normal, LightDir), 0.0);
     float spec = pow(max(dot(ViewDir, ReflectDir), 0.0), 32);
 
     vec3 Diffuse = Lights[i].Color * diff * (1 / Dist) * (1 / Dist);
+    //vec3 Diffuse = vec3(0,0,0);
     vec3 Specular = 0.5 * spec * Lights[i].Color * (1 / Dist) * (1 / Dist);
-
-    color += vec4((Diffuse + Specular), 1.0) * texture(TEX, i_tc);
+    //vec3 Specular = vec3(0,0,0);
+    color += vec4((Diffuse + Specular), 1.0) * texture(TEX, input_texcoords);
   }
   
   pixelColor = color;

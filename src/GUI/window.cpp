@@ -257,7 +257,7 @@ void Window::ProcessOther()
 		camera_ptr->ResetSpeed();
 
     if (glfwGetKey(window_ptr, GLFW_KEY_H) == GLFW_PRESS)
-        camera_ptr->noclip=false;
+        camera_ptr->noclip = false;
 
     if (glfwGetKey(window_ptr, GLFW_KEY_T) == GLFW_PRESS)
         camera_ptr->noclip = true;
