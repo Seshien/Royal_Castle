@@ -8,6 +8,8 @@ InitCastle::InitCastle(std::shared_ptr<ShaderProgram> shader)
 	CreateTemplate("data\\mur.obj", "mur", shader);
 	CreateTemplate("data\\stragan.obj", "stragan", shader);
 	CreateTemplate("data\\Castle\\Castle OBJ.obj", "castle", shader);
+	CreateTemplate("data\\flaga.obj", "flaga", shader);
+
 
 	scale_x = 0.1;
 	scale_y = 0.2;
@@ -24,6 +26,7 @@ InitCastle::InitCastle(std::shared_ptr<ShaderProgram> shader)
 	//mury
 
 	CreateObject("mur", glm::vec3(140 * scale_x, 0 * scale_y, 40 * scale_z), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 0.0f, 0.0f));                                //0.0f, 0.0f, 0.0f
+	CreateObject("flaga", glm::vec3(147 * scale_x, 8, -127 * scale_z), glm::vec3(scale_x*2, scale_y*2, scale_z*2), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 0.0f, 0.0f));
 	CreateObject("mur", glm::vec3(0.0f, 0.0f, -120 * scale_z), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), PI / 2, glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 0.0f, 0.0f));                                //-1.0f, 0.0f, 13.5f
 	CreateObject("mur", glm::vec3(-160 * scale_x, 0.0f, 40 * scale_z), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), PI, glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 0.0f, 0.0f));                           //13.5f, 0.0f, 14.5f
 	CreateObject("mur", glm::vec3(-20 * scale_x, 0.0f, 200 * scale_z), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), PI * 3 / 2, glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 0.0f, 0.0f));                    //14.5f, 0.0f, 1.0f
