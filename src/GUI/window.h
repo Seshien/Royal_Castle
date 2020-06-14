@@ -56,6 +56,8 @@ private:
 
 	void ProcessOther();
 
+	void ProcessObjectMovement();
+
 	void ClearWindow();
 
 	void ProcessMovement();
@@ -69,6 +71,9 @@ private:
 	float timer;
 	float frameTime;
 	float lastFrameTime;
+	int handled;
+	bool editorMode;
+	bool clicker;
 };
 
 

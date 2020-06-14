@@ -84,6 +84,11 @@ bool Window::ObjectsInit()
 {
     initcastle = std::make_unique<InitCastle>(this->TexturedShader);
 
+    this->handled = 0;
+
+    this->clicker = true;
+
+    this->editorMode = false;
 
     this->modelTemplates = initcastle->LoadTemplates();
     
@@ -184,16 +189,23 @@ void Window::ProcessInput()
     lastFrameTime = frameTime;
     frameTime = glfwGetTime();
 	//std::cout << camera_ptr->cameraCoords.x << " " << camera_ptr->cameraCoords.y << " " << camera_ptr->cameraCoords.z << std::endl;
-    if (timer > 5.0)
+    if (timer > 5.0 && !this->editorMode)
     {
-        timer = 0;
+       timer = 0;
        std::cout << "Pozycja kamer" << std::endl;
        camera_ptr->printCoords();
+
     }
 
 	ProcessMovement();
 
 	ProcessOther();
+
+    //poruszanie obiektow
+    if (this->editorMode)
+        ProcessObjectMovement();
+
+
 }
 
 void Window::ProcessMovement()
@@ -264,6 +276,62 @@ void Window::ProcessOther()
 
     if (glfwGetKey(window_ptr, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
         camera_ptr->SetFastSpeed();
+
+    if (glfwGetKey(window_ptr, GLFW_KEY_M) == GLFW_PRESS)
+        this->editorMode = true;
+
+    if (glfwGetKey(window_ptr, GLFW_KEY_N) == GLFW_PRESS)
+        this->editorMode = false;
+}
+
+void Window::ProcessObjectMovement()
+{
+    if (timer > 1.0)
+    {
+        timer = 0;
+        clicker = true;
+    }
+    float przesuniecie = frameTime - lastFrameTime;
+    float speed = this->camera_ptr->GetSpeed();
+
+    if (glfwGetKey(window_ptr, GLFW_KEY_MINUS) == GLFW_PRESS)
+        if (this->handled > 0 && clicker)
+        {
+            handled--;
+            clicker = false;
+        }
+
+
+    if (glfwGetKey(window_ptr, GLFW_KEY_EQUAL) == GLFW_PRESS)
+        if (this->handled + 1 < this->objects.size() && clicker)
+        {
+            handled++;
+            clicker = false;
+        }
+
+    if (handled > this->objects.size()) return;
+
+    if (glfwGetKey(window_ptr, GLFW_KEY_I) == GLFW_PRESS)
+        objects[handled].ChangePosition(glm::vec3(-speed * przesuniecie, 0.0, 0.0));
+    if (glfwGetKey(window_ptr, GLFW_KEY_K) == GLFW_PRESS)
+        objects[handled].ChangePosition(glm::vec3(speed * przesuniecie, 0.0, 0.0));
+    if (glfwGetKey(window_ptr, GLFW_KEY_J) == GLFW_PRESS)
+        objects[handled].ChangePosition(glm::vec3(0.0, 0.0, speed * przesuniecie));
+    if (glfwGetKey(window_ptr, GLFW_KEY_L) == GLFW_PRESS)
+        objects[handled].ChangePosition(glm::vec3(0.0, 0.0, -speed * przesuniecie));
+    if (glfwGetKey(window_ptr, GLFW_KEY_O) == GLFW_PRESS)
+        objects[handled].ChangePosition(glm::vec3(0.0, speed * przesuniecie, 0.0));
+    if (glfwGetKey(window_ptr, GLFW_KEY_P) == GLFW_PRESS)
+        objects[handled].ChangePosition(glm::vec3(0.0, -speed * przesuniecie, 0.0));
+
+    if (this->timer == 0)
+    {
+        auto pos = objects[handled].GetPosition();
+        std::cout << "Nazwa obiektu " << objects[handled].GetParent()->GetName() << std::endl
+            << "Nr obiektu " << handled << std::endl
+            << "Pozycja obiektu " << pos.x << " " << pos.y << " " << pos.z << std::endl;
+    }
+
 }
 
 void Window::ClearWindow()

@@ -29,7 +29,7 @@ bool Model::Collision(glm::vec3 pos)
 void Model::ChangePosition(glm::vec3 movement)
 {
 	mat = glm::translate(mat, movement);
-	this->position *= movement;
+	this->position += movement;
 }
 
 void Model::SetPosition(glm::vec3 position)
@@ -41,7 +41,7 @@ void Model::SetPosition(glm::vec3 position)
 void Model::ChangeScale(glm::vec3 scale)
 {
 	mat = glm::scale(mat, scale);
-	this->scale *= scale;
+	this->scale += scale;
 }
 
 void Model::SetScale(glm::vec3 scale)
@@ -53,8 +53,8 @@ void Model::SetScale(glm::vec3 scale)
 void Model::ChangeRotation(glm::vec3 rotate, float angle)
 {
 	mat = glm::rotate(mat, angle, rotate);
-	this->rotation *= rotate;
-	this->angle *= angle;
+	this->rotation += rotate;
+	this->angle += angle;
 }
 
 void Model::SetRotation(glm::vec3 rotate, float angle)

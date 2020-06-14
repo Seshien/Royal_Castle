@@ -26,6 +26,7 @@ public:
 	void DecreaseSpeed();
 	void ResetSpeed();
     void SetFastSpeed();
+    float GetSpeed() { return this->speed; }
 
 	void printCoords();
 
