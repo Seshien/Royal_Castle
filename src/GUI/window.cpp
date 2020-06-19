@@ -19,7 +19,7 @@ Window::Window()
 
     if (ObjectsInit()) std::cout << "Daleka przyszlosc" << std::endl;
     else std::cout << "Objects Init Completed" << std::endl;
-}
+ }
 
 void Window::GLFWInit()
 {
@@ -98,6 +98,8 @@ bool Window::ObjectsInit()
 
     this->lights = initcastle->LoadLights();
 
+    initializeSystem();
+
     return 0;
 }
 
@@ -161,7 +163,12 @@ void Window::RenderWindow()
 	
 	//glUniformMatrix4fv(TexturedShader->u("M"), 1, false, glm::value_ptr(player_ptr->GetMatrix()));
     player_ptr->DrawWire();
-  
+    for (int i = 100; i < 104; i++) objects[i].move_flag();
+    ProcessSystem();
+    for (int i = 0; i < 100; i++)
+    {
+        objects[i].SetPosition(system[i].position);
+    }
     for (auto model : objects)
     {
 
@@ -174,6 +181,7 @@ void Window::RenderWindow()
         model.Draw();
     }
 
+
     glfwSwapBuffers(window_ptr);
 }
 
@@ -181,7 +189,6 @@ void Window::ProcessMouse(GLFWwindow* window, double xpos, double ypos)
 {
     camera_ptr->ChangeViewPosition(xpos, ypos);
 }
-
 
 void Window::ProcessInput()
 {
@@ -348,4 +355,44 @@ void ProcessMouse_call(GLFWwindow* window, double xpos, double ypos)
 {
 	Window* wind = reinterpret_cast<Window*>(glfwGetWindowUserPointer(window));
 	wind->ProcessMouse(window, xpos, ypos);
+}
+
+void InitCastle::CreateSources(glm::vec3 pos, glm::vec3 col)
+{
+    Light a;
+    a.color = col;
+    a.pos = pos;
+    _lights.push_back(a);
+    //sources[n++] = a;
+
+}
+
+void Window::create_Particle()
+{
+    Particle a;
+    a.position = glm::vec3(3, 7, -6);
+    a.speed = glm::vec3((double)rand() / RAND_MAX, 5 * abs((double)rand() / RAND_MAX), (double)rand() / RAND_MAX);
+    a.ttl = rand() % 100;
+    system.push_back(a);
+}
+
+void Window::initializeSystem()
+{
+    for (int i = 0; i < ilosc; i++) create_Particle();
+}
+
+void Window::ProcessSystem()
+{
+    for (int i = 0; i < ilosc; i++)
+    {
+        system[i].position += system[i].speed * (frameTime - lastFrameTime);
+        system[i].speed -= glm::vec3(0.01, 0.01f, 0.0f);
+        system[i].ttl -= 0.5;
+        if (system[i].ttl <= 0)
+        {
+            system[i].position = glm::vec3(3, 7, -6);
+            system[i].speed = glm::vec3((double)rand() / RAND_MAX, 5 * abs((double)rand() / RAND_MAX), (double)rand() / RAND_MAX);
+            system[i].ttl = rand() % 100;
+        }
+    }
 }

@@ -3,8 +3,9 @@
 
 #include <glm\glm.hpp>
 #include <glm\ext.hpp>
-
+#include <math.h>
 #include "modelTemplate.h"
+
 class Model
 {
 public:
@@ -34,7 +35,14 @@ public:
 	std::shared_ptr<ModelTemplate> GetParent() { return parent; }
 	glm::vec3 GetPosition() { return position; }
 
+	void move_flag();
+
+	float flag_angle;
+	float flag_speed = 0.0005;
+	
+
 private:
+
 
 	void SetMatrix();
 

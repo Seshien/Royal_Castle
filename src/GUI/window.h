@@ -18,7 +18,12 @@
 
 void ChangeViewSize_call(GLFWwindow* window, int width, int height);
 void ProcessMouse_call(GLFWwindow* window, double xpos, double ypos);
-
+struct Particle
+{
+	glm::vec3 position;
+	glm::vec3 speed;
+	float ttl;
+};
 class Window
 {
 
@@ -34,6 +39,13 @@ public:
 	GLFWwindow* window_ptr;
     std::shared_ptr<ShaderProgram> TexturedShader;
 	std::shared_ptr<ShaderProgram> ColorShader;
+	void create_Particle();
+
+	void ProcessSystem();
+	int ilosc = 10000;
+	glm::vec3 gravity = glm::vec3(0, 1, 0);
+
+	void initializeSystem();
 
 private:
 
@@ -62,6 +74,7 @@ private:
 
 	void ProcessMovement();
 
+	std::vector<Particle> system;
 
 	ShaderProgram *sp;
 	std::vector<Model> objects;
@@ -74,6 +87,8 @@ private:
 	int handled;
 	bool editorMode;
 	bool clicker;
+
+
 };
 
 

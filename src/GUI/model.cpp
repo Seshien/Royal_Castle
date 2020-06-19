@@ -1,8 +1,10 @@
 #include "model.h"
+#include "../constants.h"
 
 
 Model::Model(std::shared_ptr<ModelTemplate> parent, glm::vec3 position, glm::vec3 scale, glm::vec3 rotate, float angle, glm::vec3 color)
 {
+	flag_angle = 0;
 	this->parent = parent;
 	this->color = color;
 	SetMatrix(position, scale, rotate, angle);
@@ -81,3 +83,18 @@ void Model::SetMatrix(glm::vec3 position, glm::vec3 scale, glm::vec3 rotate, flo
 	this->angle = angle;
 	SetMatrix();
 }
+
+void Model::move_flag()
+{
+	flag_angle += flag_speed;// *glfwGetTime() / 10;
+	if (flag_angle > PI / 100)
+		flag_speed *= -1;
+	else if (flag_angle < -PI / 100)
+		flag_speed *= -1;
+	
+	
+	mat = glm::rotate(mat, flag_angle, glm::vec3(0,1,0));
+}
+
+
+
