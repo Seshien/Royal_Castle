@@ -24,7 +24,7 @@ uniform vec3 CameraPos;
 
 void main()
 {
-  vec4 color = vec4(0.025, 0.025, 0.025, 1.0) * texture(TEX, input_texcoords);
+  vec4 color = vec4(0.2, 0.2, 0.2, 1.0) * texture(TEX, input_texcoords);
   vec3 normal = normalize(NormalMatrix * input_normal);
   vec3 ViewDir = normalize(CameraPos - input_coords);
 
@@ -36,11 +36,11 @@ void main()
     float Dist = distance(input_coords, Lights[i].Pos);
     
     float diff = max(dot(normal, LightDir), 0.0);
-    float spec = pow(max(dot(ViewDir, ReflectDir), 0.0), 32);
+    float spec = pow(max(dot(ViewDir, ReflectDir), 0.0), 1024);
 
     vec3 Diffuse = Lights[i].Color * diff * (1 / Dist) * (1 / Dist);
     //vec3 Diffuse = vec3(0,0,0);
-    vec3 Specular = 0.5 * spec * Lights[i].Color * (1 / Dist) * (1 / Dist);
+    vec3 Specular = 0.5 * spec * Lights[i].Color * (1 / Dist) ;
     //vec3 Specular = vec3(0,0,0);
     color += vec4((Diffuse + Specular), 1.0) * texture(TEX, input_texcoords);
   }

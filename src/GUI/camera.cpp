@@ -91,7 +91,7 @@ void Camera::ResetSpeed()
 
 void Camera::SetFastSpeed()
 {
-	this->speed = 15.0f;
+	this->speed = 3.0f;
 }
 
 void Camera::printCoords()

@@ -18,7 +18,12 @@
 
 void ChangeViewSize_call(GLFWwindow* window, int width, int height);
 void ProcessMouse_call(GLFWwindow* window, double xpos, double ypos);
-
+struct Particle
+{
+	glm::vec3 position;
+	glm::vec3 speed;
+	float ttl;
+};
 class Window
 {
 
@@ -33,8 +38,16 @@ public:
 	std::unique_ptr<Camera> camera_ptr;
 	GLFWwindow* window_ptr;
     std::shared_ptr<ShaderProgram> TexturedShader;
+	std::shared_ptr<ShaderProgram> ColorShader;
+	void create_Particle();
+
+	void ProcessSystem();
+	int ilosc = 10000;
+	glm::vec3 gravity = glm::vec3(0, 1, 0);
 	std::shared_ptr<ShaderProgram> SkyBoxShader;
 
+
+	void initializeSystem();
 
 private:
 
@@ -57,9 +70,13 @@ private:
 
 	void ProcessOther();
 
+	void ProcessObjectMovement();
+
 	void ClearWindow();
 
 	void ProcessMovement();
+
+	std::vector<Particle> system;
 
 	std::vector<Model> objects;
 	std::vector<std::shared_ptr<ModelTemplate>> modelTemplates;
@@ -69,6 +86,11 @@ private:
 	float timer;
 	float frameTime;
 	float lastFrameTime;
+	int handled;
+	bool editorMode;
+	bool clicker;
+
+
 };
 
 

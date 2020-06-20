@@ -3,8 +3,9 @@
 
 #include <glm\glm.hpp>
 #include <glm\ext.hpp>
-
+#include <math.h>
 #include "modelTemplate.h"
+
 class Model
 {
 public:
@@ -24,14 +25,24 @@ public:
 	void ChangeRotation(glm::vec3 rotate, float angle);
 	void SetRotation(glm::vec3 rotate, float angle);
 
-	
+
 
 	void SetMatrix(glm::vec3 position, glm::vec3 scale, glm::vec3 rotate, float angle);
 	glm::mat4 GetMatrix() { return this->mat; }
 	glm::mat4 GetInvMatrix() { return this->invMat; }
 	glm::vec3 GetColor() { return this->color; }
 
+	std::shared_ptr<ModelTemplate> GetParent() { return parent; }
+	glm::vec3 GetPosition() { return position; }
+
+	void move_flag();
+
+	float flag_angle;
+	float flag_speed = 0.0005;
+	
+
 private:
+
 
 	void SetMatrix();
 

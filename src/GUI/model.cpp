@@ -1,8 +1,10 @@
 #include "model.h"
+#include "../constants.h"
 
 
 Model::Model(std::shared_ptr<ModelTemplate> parent, glm::vec3 position, glm::vec3 scale, glm::vec3 rotate, float angle, glm::vec3 color)
 {
+	flag_angle = 0;
 	this->parent = parent;
 	this->color = color;
 	SetMatrix(position, scale, rotate, angle);
@@ -29,7 +31,7 @@ bool Model::Collision(glm::vec3 pos)
 void Model::ChangePosition(glm::vec3 movement)
 {
 	mat = glm::translate(mat, movement);
-	this->position *= movement;
+	this->position += movement;
 }
 
 void Model::SetPosition(glm::vec3 position)
@@ -41,7 +43,7 @@ void Model::SetPosition(glm::vec3 position)
 void Model::ChangeScale(glm::vec3 scale)
 {
 	mat = glm::scale(mat, scale);
-	this->scale *= scale;
+	this->scale += scale;
 }
 
 void Model::SetScale(glm::vec3 scale)
@@ -53,8 +55,8 @@ void Model::SetScale(glm::vec3 scale)
 void Model::ChangeRotation(glm::vec3 rotate, float angle)
 {
 	mat = glm::rotate(mat, angle, rotate);
-	this->rotation *= rotate;
-	this->angle *= angle;
+	this->rotation += rotate;
+	this->angle += angle;
 }
 
 void Model::SetRotation(glm::vec3 rotate, float angle)
@@ -81,3 +83,18 @@ void Model::SetMatrix(glm::vec3 position, glm::vec3 scale, glm::vec3 rotate, flo
 	this->angle = angle;
 	SetMatrix();
 }
+
+void Model::move_flag()
+{
+	flag_angle += flag_speed;// *glfwGetTime() / 10;
+	if (flag_angle > PI / 100)
+		flag_speed *= -1;
+	else if (flag_angle < -PI / 100)
+		flag_speed *= -1;
+	
+	
+	mat = glm::rotate(mat, flag_angle, glm::vec3(0,1,0));
+}
+
+
+
