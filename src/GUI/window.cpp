@@ -367,15 +367,6 @@ void ProcessMouse_call(GLFWwindow* window, double xpos, double ypos)
 	wind->ProcessMouse(window, xpos, ypos);
 }
 
-void InitCastle::CreateSources(glm::vec3 pos, glm::vec3 col)
-{
-    Light a;
-    a.color = col;
-    a.pos = pos;
-    _lights.push_back(a);
-    //sources[n++] = a;
-
-}
 
 void Window::create_Particle()
 {

@@ -120,4 +120,4 @@ void InitCastle::CreateSources(glm::vec3 pos, glm::vec3 col)
 	a.pos = pos;
 	_lights.push_back(a);
 	//sources[n++] = a;
-
+}
