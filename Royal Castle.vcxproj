@@ -29,7 +29,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -160,6 +160,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GUI\skybox.cpp" />
     <ClCompile Include="src\GUI\init_castle.cpp" />
     <ClCompile Include="src\GUI\mesh.cpp" />
     <ClCompile Include="src\GUI\model.cpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="src\GUI\modelTemplate.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GUI\skybox.h" />
     <ClInclude Include="src\GUI\init_castle.h" />
     <ClInclude Include="src\GUI\mesh.h" />
     <ClInclude Include="src\GUI\model.h" />

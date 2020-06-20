@@ -75,7 +75,7 @@ bool Window::ShadersInit()
     //myShader = new ShaderProgram("src\\Dependiences\\v_lambert.glsl", NULL, "src\\Dependiences\\f_lambert.glsl");
     TexturedShader = std::make_shared<ShaderProgram>("src\\Dependiences\\v_lamberttextured.glsl", "no", "src\\Dependiences\\f_lamberttextured.glsl");
 	//TexturedShader = std::make_shared<ShaderProgram>("src\\Dependiences\\v_simplest.glsl", "no", "src\\Dependiences\\f_simplest.glsl");
-	ColorShader = std::make_shared<ShaderProgram>("src\\Dependiences\\v_lambert.glsl", "no", "src\\Dependiences\\f_lambert.glsl");
+	SkyBoxShader = std::make_shared<ShaderProgram>("src\\Dependiences\\v_skybox.glsl", "no", "src\\Dependiences\\f_skybox.glsl");
 
     return 0;
 }
@@ -97,6 +97,8 @@ bool Window::ObjectsInit()
     this->objects = initcastle->LoadObjects();
 
     this->lights = initcastle->LoadLights();
+
+	this->skybox_ptr = initcastle->LoadSkybox(this->SkyBoxShader);
 
     initializeSystem();
 
@@ -179,8 +181,16 @@ void Window::RenderWindow()
         glUniformMatrix3fv(TexturedShader->u("NormalMatrix"), 1, false, glm::value_ptr(model.GetInvMatrix()));
 
         model.Draw();
+
+
     }
 
+	SkyBoxShader->use();
+	V = glm::mat4(glm::mat3(V)); // remove translation from the view matrix
+	glUniformMatrix4fv(SkyBoxShader->u("P"), 1, false, glm::value_ptr(P)); //Za³aduj do programu cieniuj¹cego macierz rzutowania
+	glUniformMatrix4fv(SkyBoxShader->u("V"), 1, false, glm::value_ptr(V)); //Za³aduj do programu cieniuj¹cego macierz widoku
+
+	skybox_ptr->Draw();
 
     glfwSwapBuffers(window_ptr);
 }
@@ -357,15 +367,6 @@ void ProcessMouse_call(GLFWwindow* window, double xpos, double ypos)
 	wind->ProcessMouse(window, xpos, ypos);
 }
 
-void InitCastle::CreateSources(glm::vec3 pos, glm::vec3 col)
-{
-    Light a;
-    a.color = col;
-    a.pos = pos;
-    _lights.push_back(a);
-    //sources[n++] = a;
-
-}
 
 void Window::create_Particle()
 {
