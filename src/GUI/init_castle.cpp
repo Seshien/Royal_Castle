@@ -105,6 +105,11 @@ std::vector<Light> InitCastle::LoadLights()
 	return _lights;
 }
 
+std::shared_ptr<Skybox> InitCastle::LoadSkybox(std::shared_ptr<ShaderProgram> shader)
+{
+	return std::make_shared<Skybox>("data\\skybox", shader);
+}
+
 void InitCastle::CreateSources(glm::vec3 pos, glm::vec3 col)
 {
 	Light a;

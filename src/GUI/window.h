@@ -14,7 +14,7 @@
 #include "model.h"
 #include "camera.h"
 #include "init_castle.h"
-
+#include "skybox.h"
 
 void ChangeViewSize_call(GLFWwindow* window, int width, int height);
 void ProcessMouse_call(GLFWwindow* window, double xpos, double ypos);
@@ -33,7 +33,8 @@ public:
 	std::unique_ptr<Camera> camera_ptr;
 	GLFWwindow* window_ptr;
     std::shared_ptr<ShaderProgram> TexturedShader;
-	std::shared_ptr<ShaderProgram> ColorShader;
+	std::shared_ptr<ShaderProgram> SkyBoxShader;
+
 
 private:
 
@@ -60,11 +61,10 @@ private:
 
 	void ProcessMovement();
 
-
-	ShaderProgram *sp;
 	std::vector<Model> objects;
 	std::vector<std::shared_ptr<ModelTemplate>> modelTemplates;
 	std::unique_ptr<Model> player_ptr;
+	std::shared_ptr<Skybox> skybox_ptr;
 	std::vector<Light> lights;
 	float timer;
 	float frameTime;

@@ -8,6 +8,7 @@
 #include "shaderprogram.h"
 #include "modelTemplate.h"
 #include "camera.h"
+#include "skybox.h"
 
 struct Light {
 	glm::vec3 pos;
@@ -28,6 +29,8 @@ public:
 	std::vector<std::shared_ptr<ModelTemplate>> LoadTemplates();
 	std::vector<Model> LoadObjects();
 	std::vector<Light> LoadLights();
+	std::shared_ptr<Skybox> LoadSkybox(std::shared_ptr<ShaderProgram> shader);
+
 	int n;
 	Light sources[256];
 
