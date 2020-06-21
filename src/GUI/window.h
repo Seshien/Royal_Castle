@@ -42,7 +42,7 @@ public:
 	void create_Particle();
 
 	void ProcessSystem();
-	int ilosc = 10000;
+	int ilosc = 100;
 	glm::vec3 gravity = glm::vec3(0, 1, 0);
 	std::shared_ptr<ShaderProgram> SkyBoxShader;
 
