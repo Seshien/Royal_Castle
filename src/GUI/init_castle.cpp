@@ -4,11 +4,11 @@ InitCastle::InitCastle(std::shared_ptr<ShaderProgram> shader)
 {
 	CreateTemplate("data\\cube.obj", "cube", shader);
 	CreateTemplate("data\\cube_2.obj", "cube_2", shader);
-	CreateTemplate("data\\medieval-house.obj", "house", shader);
-	CreateTemplate("data\\lepszymur.obj", "mur", shader);
+	CreateTemplate("data\\medieval-house-textured.obj", "house", shader);
+	CreateTemplate("data\\mur.obj", "mur", shader);
 	CreateTemplate("data\\stragan.obj", "stragan", shader);
 	CreateTemplate("data\\Castle\\Castle OBJ.obj", "castle", shader);
-	CreateTemplate("data\\biedamur.obj", "flaga", shader);
+	CreateTemplate("data\\flaga.obj", "flaga", shader);
 	CreateTemplate("data\\dym.obj", "dym", shader);
 	CreateTemplate("data\\pochodnia.obj", "pochodnia", shader);
 
