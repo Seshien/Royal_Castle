@@ -4,7 +4,6 @@
 
 Model::Model(std::shared_ptr<ModelTemplate> parent, glm::vec3 position, glm::vec3 scale, glm::vec3 rotate, float angle, glm::vec3 color)
 {
-	flag_angle = 0;
 	this->parent = parent;
 	this->color = color;
 	SetMatrix(position, scale, rotate, angle);
@@ -15,11 +14,19 @@ Model::Model(std::shared_ptr<ModelTemplate> parent, glm::vec3 position, glm::vec
 
 void Model::Draw()
 {
+
+	glUniformMatrix4fv(parent->GetShader()->u("M"), 1, false, glm::value_ptr(this->GetMatrix()));
+	glUniformMatrix3fv(parent->GetShader()->u("NormalMatrix"), 1, false, glm::value_ptr(this->GetInvMatrix()));
+
 	this->parent->Draw();
 }
 
 void Model::DrawWire()
 {
+
+	glUniformMatrix4fv(parent->GetShader()->u("M"), 1, false, glm::value_ptr(this->GetMatrix()));
+	glUniformMatrix3fv(parent->GetShader()->u("NormalMatrix"), 1, false, glm::value_ptr(this->GetInvMatrix()));
+
 	this->parent->DrawWire();
 }
 
@@ -82,18 +89,6 @@ void Model::SetMatrix(glm::vec3 position, glm::vec3 scale, glm::vec3 rotate, flo
 	this->scale = scale;
 	this->angle = angle;
 	SetMatrix();
-}
-
-void Model::move_flag()
-{
-	flag_angle += flag_speed;// *glfwGetTime() / 10;
-	if (flag_angle > PI / 100)
-		flag_speed *= -1;
-	else if (flag_angle < -PI / 100)
-		flag_speed *= -1;
-	
-	
-	mat = glm::rotate(mat, flag_angle, glm::vec3(0,1,0));
 }
 
 

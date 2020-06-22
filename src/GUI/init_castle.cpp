@@ -5,10 +5,10 @@ InitCastle::InitCastle(std::shared_ptr<ShaderProgram> shader)
 	CreateTemplate("data\\cube.obj", "cube", shader);
 	CreateTemplate("data\\cube_2.obj", "cube_2", shader);
 	CreateTemplate("data\\medieval-house.obj", "house", shader);
-	CreateTemplate("data\\mur.obj", "mur", shader);
+	CreateTemplate("data\\lepszymur.obj", "mur", shader);
 	CreateTemplate("data\\stragan.obj", "stragan", shader);
 	CreateTemplate("data\\Castle\\Castle OBJ.obj", "castle", shader);
-	CreateTemplate("data\\flaga.obj", "flaga", shader);
+	CreateTemplate("data\\biedamur.obj", "flaga", shader);
 	CreateTemplate("data\\dym.obj", "dym", shader);
 	CreateTemplate("data\\pochodnia.obj", "pochodnia", shader);
 
@@ -26,11 +26,13 @@ InitCastle::InitCastle(std::shared_ptr<ShaderProgram> shader)
 	scale_x = 0.1;
 	scale_y = 0.2;
 	scale_z = 0.1;	//podloga
-	CreateObject("flaga", glm::vec3(145 * scale_x, 8, -127 * scale_z), glm::vec3(scale_x * 4, scale_y * 4, scale_z * 4), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.8f, 0.8f, 0.8f));
+	
 	CreateSources(glm::vec3(146 * scale_x, 7, -130 * scale_z), glm::vec3(0.8f, 0.8f, 0.8f));
+
 	CreateObject("flaga", glm::vec3(-165 * scale_x, 8, -127 * scale_z), glm::vec3(scale_x * 4, scale_y * 4, scale_z * 4), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 0.0f, 0.0f));
 	CreateObject("flaga", glm::vec3(-165 * scale_x, 8, 205 * scale_z), glm::vec3(scale_x * 4, scale_y * 4, scale_z * 4), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 0.0f, 0.0f));
 	CreateObject("flaga", glm::vec3(145 * scale_x, 8, 205 * scale_z), glm::vec3(scale_x * 4, scale_y * 4, scale_z * 4), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 0.0f, 0.0f));
+	CreateObject("flaga", glm::vec3(145 * scale_x, 8, -127 * scale_z), glm::vec3(scale_x * 4, scale_y * 4, scale_z * 4), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.8f, 0.8f, 0.8f));
 	
 	CreateObject("cube_2", glm::vec3(-10 * scale_x, -0.45f, 40 * scale_z), glm::vec3(150 * scale_x, 0.1, 160 * scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f),0, glm::vec3(0.0f, 0.0f, 0.0f));
 	

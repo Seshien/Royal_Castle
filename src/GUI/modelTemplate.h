@@ -33,8 +33,9 @@ public:
     void Draw();
 	void DrawWire();
 
-    std::vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
+    std::vector<Texture> textures_loaded;
 	std::vector<Mesh> GetMeshes() { return this->meshes; }
+	std::shared_ptr<ShaderProgram> GetShader() { return this->shader; }
 	bool Collision(const glm::vec3 pos, const glm::mat4 mat)
 	{
 		for (auto mesh : meshes)

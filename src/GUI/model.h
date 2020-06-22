@@ -28,18 +28,13 @@ public:
 
 
 	void SetMatrix(glm::vec3 position, glm::vec3 scale, glm::vec3 rotate, float angle);
+	void SetMatrix(glm::mat4 _mat) { this->mat = -mat; }
 	glm::mat4 GetMatrix() { return this->mat; }
 	glm::mat4 GetInvMatrix() { return this->invMat; }
 	glm::vec3 GetColor() { return this->color; }
 
 	std::shared_ptr<ModelTemplate> GetParent() { return parent; }
 	glm::vec3 GetPosition() { return position; }
-
-	void move_flag();
-
-	float flag_angle;
-	float flag_speed = 0.0005;
-	
 
 private:
 

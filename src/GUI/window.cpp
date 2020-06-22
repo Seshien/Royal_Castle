@@ -19,6 +19,7 @@ Window::Window()
 
     if (ObjectsInit()) std::cout << "Daleka przyszlosc" << std::endl;
     else std::cout << "Objects Init Completed" << std::endl;
+
  }
 
 void Window::GLFWInit()
@@ -100,7 +101,9 @@ bool Window::ObjectsInit()
 
 	this->skybox_ptr = initcastle->LoadSkybox(this->SkyBoxShader);
 
-    initializeSystem();
+    InitializeParticles();
+	InitializeFlags();
+
 
     return 0;
 }
@@ -125,6 +128,8 @@ bool Window::StartWindow()
         //INPUT
         ProcessInput();
 
+		ProcessInternal();
+
         //RENDER
         RenderWindow();
 
@@ -138,18 +143,21 @@ bool Window::StartWindow()
 
 void Window::RenderWindow()
 {
-
-    //RandomClearColor();
+	//Czyszczenie okna
     ClearWindow();
+
+
     glm::mat4 V = glm::lookAt(camera_ptr->cameraCoords, camera_ptr->cameraViewCoords + camera_ptr->cameraCoords, camera_ptr->cameraDefUpCoords); //Wylicz macierz widoku
     glm::mat4 P = glm::perspective(glm::radians(50.0f), 1.0f, 1.0f, 100.0f); //Wylicz macierz rzutowania
 
-    TexturedShader->use(); //Aktywuj program cieniuj¹cy
+    TexturedShader->use();
     glUniformMatrix4fv(TexturedShader->u("P"), 1, false, glm::value_ptr(P)); //Za³aduj do programu cieniuj¹cego macierz rzutowania
     glUniformMatrix4fv(TexturedShader->u("V"), 1, false, glm::value_ptr(V)); //Za³aduj do programu cieniuj¹cego macierz widoku
 
     glUniform1i(TexturedShader->u("LightsCount"), lights.size());
     glUniform3fv(TexturedShader->u("CameraPos"), 1, glm::value_ptr(camera_ptr->cameraCoords));
+
+
     for (int i = 0; i < lights.size(); i++)
     {
         std::string a = "Lights[" + std::to_string(i) + "].Color";
@@ -159,38 +167,23 @@ void Window::RenderWindow()
     }
 
     //MODELE
-  
-	auto color = player_ptr->GetColor();
- 
-	
-	//glUniformMatrix4fv(TexturedShader->u("M"), 1, false, glm::value_ptr(player_ptr->GetMatrix()));
-    player_ptr->DrawWire();
-    for (int i = 100; i < 104; i++) objects[i].move_flag();
-    ProcessSystem();
-    for (int i = 0; i < 100; i++)
-    {
-        objects[i].SetPosition(system[i].position);
-    }
+
     for (auto model : objects)
     {
-
-		//color = model.GetColor();
-        // glUniform1i(TexturedShader->u("TEX"), 0);
-		//glUniform4f(TexturedShader->u("color"), color.x, color.y, color.z, 1);
-        glUniformMatrix4fv(TexturedShader->u("M"), 1, false, glm::value_ptr(model.GetMatrix()));
-        glUniformMatrix3fv(TexturedShader->u("NormalMatrix"), 1, false, glm::value_ptr(model.GetInvMatrix()));
-
         model.Draw();
-
-
     }
 
 	SkyBoxShader->use();
-	V = glm::mat4(glm::mat3(V)); // remove translation from the view matrix
-	glUniformMatrix4fv(SkyBoxShader->u("P"), 1, false, glm::value_ptr(P)); //Za³aduj do programu cieniuj¹cego macierz rzutowania
-	glUniformMatrix4fv(SkyBoxShader->u("V"), 1, false, glm::value_ptr(V)); //Za³aduj do programu cieniuj¹cego macierz widoku
+
+	//usuwamy translacje z macierzy widoku, by skybox sie nie poruszal
+	V = glm::mat4(glm::mat3(V));
+
+
+	glUniformMatrix4fv(SkyBoxShader->u("P"), 1, false, glm::value_ptr(P));
+	glUniformMatrix4fv(SkyBoxShader->u("V"), 1, false, glm::value_ptr(V));
 
 	skybox_ptr->Draw();
+
 
     glfwSwapBuffers(window_ptr);
 }
@@ -214,18 +207,18 @@ void Window::ProcessInput()
 
     }
 
-	ProcessMovement();
+	ProcessInputMovement();
 
-	ProcessOther();
+	ProcessInputOther();
 
     //poruszanie obiektow
     if (this->editorMode)
-        ProcessObjectMovement();
+        ProcessInputObjectMovement();
 
 
 }
 
-void Window::ProcessMovement()
+void Window::ProcessInputMovement()
 {
 	float przesuniecie = frameTime - lastFrameTime;
 
@@ -271,7 +264,7 @@ void Window::ProcessMovement()
     player_ptr->SetPosition(camera_ptr->cameraCoords);
 }
 
-void Window::ProcessOther()
+void Window::ProcessInputOther()
 {
 	if (glfwGetKey(window_ptr, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window_ptr, true);
@@ -301,7 +294,7 @@ void Window::ProcessOther()
         this->editorMode = false;
 }
 
-void Window::ProcessObjectMovement()
+void Window::ProcessInputObjectMovement()
 {
     if (timer > 1.0)
     {
@@ -356,6 +349,82 @@ void Window::ClearWindow()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
+
+
+void Window::CreateParticle(Model *model)
+{
+    Particle a;
+    a.position = glm::vec3(3, 7, -6);
+    a.speed = glm::vec3((double)rand() / RAND_MAX, 5 * abs((double)rand() / RAND_MAX), (double)rand() / RAND_MAX);
+    a.ttl = rand() % 100;
+	a.model = model;
+    particles.push_back(a);
+}
+void Window::CreateFlag(Model *model)
+{
+	Flag a;
+	a.flag_angle = 0.0f;
+	a.flag_speed = 0.0005f;
+	a.model = model;
+	flags.push_back(a);
+}
+void Window::InitializeParticles()
+{
+	for (auto & model : objects)
+		if (model.GetParent()->GetName() == "dym") CreateParticle(&model);
+}
+
+void Window::InitializeFlags()
+{
+	for (auto & model : objects)
+		if (model.GetParent()->GetName() == "flaga") CreateFlag(&model);
+}
+void Window::ProcessInternal()
+{
+
+	for (auto & flag : flags)
+	{
+		flag.flag_angle += flag.flag_speed;// *glfwGetTime() / 10;
+		if (flag.flag_angle > PI / 100)
+			flag.flag_speed *= -1;
+		else if (flag.flag_angle < -PI / 100)
+			flag.flag_speed *= -1;
+
+		flag.model->ChangeRotation(glm::vec3(0, 1, 0), flag.flag_angle);
+		//flag.model->SetMatrix(glm::rotate(flag.model->GetMatrix(), flag.flag_angle, glm::vec3(0, 1, 0)));
+		//mat = glm::rotate(mat, flag_angle, glm::vec3(0,1,0));
+	}
+
+	for (auto & particle : particles)
+	{
+		particle.position += particle.speed * (frameTime - lastFrameTime);
+		particle.speed -= glm::vec3(0.01, 0.01f, 0.0f);
+		particle.ttl -= 0.5f;
+		if (particle.ttl <= 0)
+		{
+			particle.position = glm::vec3(3, 7, -6);
+			particle.speed = glm::vec3((double)rand() / RAND_MAX, 5 * abs((double)rand() / RAND_MAX), (double)rand() / RAND_MAX);
+			particle.ttl = rand() % 100;
+		}
+		particle.model->SetPosition(particle.position);
+	}
+	/*
+    for (int i = 0; i < particles.size(); i++)
+    {
+        particles[i].position += particles[i].speed * (frameTime - lastFrameTime);
+        particles[i].speed -= glm::vec3(0.01, 0.01f, 0.0f);
+        particles[i].ttl -= 0.5f;
+        if (particles[i].ttl <= 0)
+        {
+            particles[i].position = glm::vec3(3, 7, -6);
+            particles[i].speed = glm::vec3((double)rand() / RAND_MAX, 5 * abs((double)rand() / RAND_MAX), (double)rand() / RAND_MAX);
+            particles[i].ttl = rand() % 100;
+        }
+		particles[i].model->SetPosition(particles[i].position);
+    }
+	*/
+}
+
 void ChangeViewSize_call(GLFWwindow* window, int width, int height)
 {
 	Window* wind = reinterpret_cast<Window*>(glfwGetWindowUserPointer(window));
@@ -365,35 +434,4 @@ void ProcessMouse_call(GLFWwindow* window, double xpos, double ypos)
 {
 	Window* wind = reinterpret_cast<Window*>(glfwGetWindowUserPointer(window));
 	wind->ProcessMouse(window, xpos, ypos);
-}
-
-
-void Window::create_Particle()
-{
-    Particle a;
-    a.position = glm::vec3(3, 7, -6);
-    a.speed = glm::vec3((double)rand() / RAND_MAX, 5 * abs((double)rand() / RAND_MAX), (double)rand() / RAND_MAX);
-    a.ttl = rand() % 100;
-    system.push_back(a);
-}
-
-void Window::initializeSystem()
-{
-    for (int i = 0; i < ilosc; i++) create_Particle();
-}
-
-void Window::ProcessSystem()
-{
-    for (int i = 0; i < ilosc; i++)
-    {
-        system[i].position += system[i].speed * (frameTime - lastFrameTime);
-        system[i].speed -= glm::vec3(0.01, 0.01f, 0.0f);
-        system[i].ttl -= 0.5;
-        if (system[i].ttl <= 0)
-        {
-            system[i].position = glm::vec3(3, 7, -6);
-            system[i].speed = glm::vec3((double)rand() / RAND_MAX, 5 * abs((double)rand() / RAND_MAX), (double)rand() / RAND_MAX);
-            system[i].ttl = rand() % 100;
-        }
-    }
 }
