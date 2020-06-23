@@ -38,12 +38,6 @@ void Mesh::initMesh()
     // vertex texture coords
     glEnableVertexAttribArray(2);
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
-	// vertex tangent
-	glEnableVertexAttribArray(3);
-	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Tangent));
-	// vertex bitangent
-	glEnableVertexAttribArray(4);
-	glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Bitangent));
 
     glBindVertexArray(0);
 }
@@ -108,36 +102,15 @@ bool Mesh::Collision(glm::vec3 pos, glm::mat4 mat)
 
 void Mesh::Draw(std::shared_ptr<ShaderProgram> shader)
 {
-    unsigned int diffuseNr = 1;
-    unsigned int specularNr = 1;
-	unsigned int normalNr = 1;
-	unsigned int heightNr = 1;
+
     for (unsigned int i = 0; i < textures.size(); i++)
     {
 
-        glActiveTexture(GL_TEXTURE0 + i); // activate proper texture unit before binding
-        // retrieve texture number (the N in diffuse_textureN)
+        glActiveTexture(GL_TEXTURE0 + i); 
         std::string number;
         std::string name = textures[i].type;
-		//czyli taka najprostrza tekstura,
-        if (name == "texture_diffuse")
-		{
-			//number = std::to_string(diffuseNr++);
-			glUniform1i(shader->u("TEX"), i);
-			glBindTexture(GL_TEXTURE_2D, textures[i].id);
-		}
-		//Tutaj patrzymy na to czy tekstura odbija swiatla
-        else if (name == "texture_specular")
-            number = std::to_string(specularNr++);
-		//Tutaj jest ta purpurowa, mowiaca o powierzchni
-		else if (name == "texture_normal")
-			number = std::to_string(normalNr++); // transfer unsigned int to stream
-		//Tutaj jest o wypuklosciach
-		else if (name == "texture_height")
-			number = std::to_string(heightNr++); // transfer unsigned int to stream
-		name = "material." + name + number;
-        //shader.setFloat(("material." + name + number).c_str(), i);
-		//glUniform1i(glGetUniformLocation(shader->GetID(), (name + number).c_str()), i);
+		glUniform1i(shader->u("TEX"), i);
+		glBindTexture(GL_TEXTURE_2D, textures[i].id);
 
     }
 

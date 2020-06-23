@@ -2,16 +2,16 @@
 
 InitCastle::InitCastle(std::shared_ptr<ShaderProgram> shader)
 {
-	CreateTemplate("data\\cube.obj", "cube", shader);
-	CreateTemplate("data\\cube_2.obj", "cube_2", shader);
-	CreateTemplate("data\\medieval-house-textured.obj", "house", shader);
-	CreateTemplate("data\\mur.obj", "mur", shader);
-	CreateTemplate("data\\stragan.obj", "stragan", shader);
-	CreateTemplate("data\\Castle\\Castle OBJ.obj", "castle", shader);
-	CreateTemplate("data\\flaga.obj", "flaga", shader);
-	CreateTemplate("data\\dym.obj", "dym", shader);
-	CreateTemplate("data\\pochodnia.obj", "pochodnia", shader);
-	CreateTemplate("data\\studnia.obj", "studnia", shader);
+	CreateTemplate("data/cube.obj", "cube", shader);
+	CreateTemplate("data/cube_2.obj", "cube_2", shader);
+	CreateTemplate("data/medieval-house-textured.obj", "house", shader);
+	CreateTemplate("data/mur.obj", "mur", shader);
+	CreateTemplate("data/stragan.obj", "stragan", shader);
+	CreateTemplate("data/Castle/Castle OBJ.obj", "castle", shader);
+	CreateTemplate("data/flaga.obj", "flaga", shader);
+	CreateTemplate("data/dym.obj", "dym", shader);
+	CreateTemplate("data/pochodnia.obj", "pochodnia", shader);
+	CreateTemplate("data/studnia.obj", "studnia", shader);
 
 
 	// ty
@@ -123,7 +123,7 @@ std::vector<Light> InitCastle::LoadLights()
 
 std::shared_ptr<Skybox> InitCastle::LoadSkybox(std::shared_ptr<ShaderProgram> shader)
 {
-	return std::make_shared<Skybox>("data\\skybox", shader);
+	return std::make_shared<Skybox>("data/skybox", shader);
 }
 
 void InitCastle::CreateSources(glm::vec3 pos, glm::vec3 col)

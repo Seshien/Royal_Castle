@@ -383,15 +383,13 @@ void Window::ProcessInternal()
 
 	for (auto & flag : flags)
 	{
-		flag.flag_angle += flag.flag_speed;// *glfwGetTime() / 10;
+		flag.flag_angle += flag.flag_speed;
 		if (flag.flag_angle > PI / 100)
 			flag.flag_speed *= -1;
 		else if (flag.flag_angle < -PI / 100)
 			flag.flag_speed *= -1;
 
 		flag.model->ChangeRotation(glm::vec3(0, 1, 0), flag.flag_angle);
-		//flag.model->SetMatrix(glm::rotate(flag.model->GetMatrix(), flag.flag_angle, glm::vec3(0, 1, 0)));
-		//mat = glm::rotate(mat, flag_angle, glm::vec3(0,1,0));
 	}
 
 	for (auto & particle : particles)
@@ -407,21 +405,6 @@ void Window::ProcessInternal()
 		}
 		particle.model->SetPosition(particle.position);
 	}
-	/*
-    for (int i = 0; i < particles.size(); i++)
-    {
-        particles[i].position += particles[i].speed * (frameTime - lastFrameTime);
-        particles[i].speed -= glm::vec3(0.01, 0.01f, 0.0f);
-        particles[i].ttl -= 0.5f;
-        if (particles[i].ttl <= 0)
-        {
-            particles[i].position = glm::vec3(3, 7, -6);
-            particles[i].speed = glm::vec3((double)rand() / RAND_MAX, 5 * abs((double)rand() / RAND_MAX), (double)rand() / RAND_MAX);
-            particles[i].ttl = rand() % 100;
-        }
-		particles[i].model->SetPosition(particles[i].position);
-    }
-	*/
 }
 
 void ChangeViewSize_call(GLFWwindow* window, int width, int height)
