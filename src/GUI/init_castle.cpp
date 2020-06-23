@@ -29,10 +29,10 @@ InitCastle::InitCastle(std::shared_ptr<ShaderProgram> shader)
 	CreateSources(glm::vec3(-167 * scale_x, 35 * 2 * scale_y, 203 * scale_z), glm::vec3(0.8f, 0.8f, 0.8f));
 	CreateSources(glm::vec3(-167 * scale_x, 35 * 2 *scale_y, -130 * scale_z), glm::vec3(0.8f, 0.8f, 0.8f));
 
-	CreateObject("flaga", glm::vec3(-165 * scale_x, 40 * scale_y, -127 * scale_z), glm::vec3(scale_x * 4, scale_y * 4, scale_z * 4), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 0.0f, 0.0f));
-	CreateObject("flaga", glm::vec3(-165 * scale_x, 40 * scale_y, 205 * scale_z), glm::vec3(scale_x * 4, scale_y * 4, scale_z * 4), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 0.0f, 0.0f));
-	CreateObject("flaga", glm::vec3(145 * scale_x, 40 * scale_y, 205 * scale_z), glm::vec3(scale_x * 4, scale_y * 4, scale_z * 4), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 0.0f, 0.0f));
-	CreateObject("flaga", glm::vec3(145 * scale_x, 40 * scale_y, -127 * scale_z), glm::vec3(scale_x * 4, scale_y * 4, scale_z * 4), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.8f, 0.8f, 0.8f));
+	CreateObject("flaga", glm::vec3(-165 * scale_x, 83 * scale_y, -127 * scale_z), glm::vec3(scale_x * 4, scale_y * 4, scale_z * 4), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 0.0f, 0.0f));
+	CreateObject("flaga", glm::vec3(-165 * scale_x, 83 * scale_y, 205 * scale_z), glm::vec3(scale_x * 4, scale_y * 4, scale_z * 4), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 0.0f, 0.0f));
+	CreateObject("flaga", glm::vec3(145 * scale_x, 83 * scale_y, 205 * scale_z), glm::vec3(scale_x * 4, scale_y * 4, scale_z * 4), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 0.0f, 0.0f));
+	CreateObject("flaga", glm::vec3(145 * scale_x, 83 * scale_y, -127 * scale_z), glm::vec3(scale_x * 4, scale_y * 4, scale_z * 4), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.8f, 0.8f, 0.8f));
 	
 	CreateObject("cube_2", glm::vec3(-10 * scale_x, -4.25 * scale_y, 40 * scale_z), glm::vec3(150 * scale_x, 0.1, 160 * scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f),0, glm::vec3(0.0f, 0.0f, 0.0f));
 
