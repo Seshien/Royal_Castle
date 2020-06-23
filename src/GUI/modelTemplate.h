@@ -22,7 +22,7 @@ unsigned int TextureFromFile(const char* path, const std::string& directory);
 class ModelTemplate
 {
 public:
-	//, float angle, glm::vec3 rotate, glm::vec3 color
+
     ModelTemplate(std::string path, std::string name, std::shared_ptr<ShaderProgram> shader)
     {
 		this->name = name;
@@ -33,7 +33,7 @@ public:
     void Draw();
 	void DrawWire();
 
-    std::vector<Texture> textures_loaded;
+    std::vector<Texture> textures;
 	std::vector<Mesh> GetMeshes() { return this->meshes; }
 	std::shared_ptr<ShaderProgram> GetShader() { return this->shader; }
 	bool Collision(const glm::vec3 pos, const glm::mat4 mat)

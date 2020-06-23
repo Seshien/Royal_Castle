@@ -22,6 +22,7 @@ void ProcessMouse_call(GLFWwindow* window, double xpos, double ypos);
 struct Particle
 {
 	glm::vec3 position;
+	glm::vec3 source;
 	glm::vec3 speed;
 	float ttl;
 	Model *model;
@@ -32,6 +33,7 @@ struct Flag
 	float flag_speed;
 	Model *model;
 };
+
 class Window
 {
 
@@ -54,7 +56,6 @@ public:
 	void InitializeFlags();
 
 	void ProcessInternal();
-	int particleAmount = 100;
 	glm::vec3 gravity = glm::vec3(0, 1, 0);
 
 

@@ -73,10 +73,9 @@ bool Window::ShadersInit()
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glClearColor(1.0f, 0.8f, 0.8f, 1.0f);
-    //myShader = new ShaderProgram("src\\Dependiences\\v_lambert.glsl", NULL, "src\\Dependiences\\f_lambert.glsl");
-    TexturedShader = std::make_shared<ShaderProgram>("src\\Dependiences\\v_lamberttextured.glsl", "no", "src\\Dependiences\\f_lamberttextured.glsl");
-	//TexturedShader = std::make_shared<ShaderProgram>("src\\Dependiences\\v_simplest.glsl", "no", "src\\Dependiences\\f_simplest.glsl");
-	SkyBoxShader = std::make_shared<ShaderProgram>("src\\Dependiences\\v_skybox.glsl", "no", "src\\Dependiences\\f_skybox.glsl");
+    TexturedShader = std::make_shared<ShaderProgram>("src/Dependiences/v_lamberttextured.glsl", "no", "src/Dependiences/f_lamberttextured.glsl");
+
+	SkyBoxShader = std::make_shared<ShaderProgram>("src/Dependiences/v_skybox.glsl", "no", "src/Dependiences/f_skybox.glsl");
 
     return 0;
 }
@@ -352,12 +351,13 @@ void Window::ClearWindow()
 
 void Window::CreateParticle(Model *model)
 {
-    Particle a;
-    a.position = glm::vec3(3, 7, -6);
-    a.speed = glm::vec3((double)rand() / RAND_MAX, 5 * abs((double)rand() / RAND_MAX), (double)rand() / RAND_MAX);
-    a.ttl = rand() % 100;
-	a.model = model;
-    particles.push_back(a);
+    Particle particle;
+    particle.position = model->GetPosition();
+    particle.source = model->GetPosition();
+    particle.speed = glm::vec3((double)rand() / RAND_MAX, 5 * abs((double)rand() / RAND_MAX), (double)rand() / RAND_MAX);
+    particle.ttl = (rand() % 25) / 10.0f;
+	particle.model = model;
+    particles.push_back(particle);
 }
 void Window::CreateFlag(Model *model)
 {
@@ -395,13 +395,13 @@ void Window::ProcessInternal()
 	for (auto & particle : particles)
 	{
 		particle.position += particle.speed * (frameTime - lastFrameTime);
-		particle.speed -= glm::vec3(0.01, 0.01f, 0.0f);
-		particle.ttl -= 0.5f;
+		if (particle.speed.x > 0.01f && particle.speed.y > 0.01f && particle.speed.z > 0.01f) particle.speed -= glm::vec3(0.01f, 0.01f, 0.01f);
+		particle.ttl -= (frameTime - lastFrameTime);
 		if (particle.ttl <= 0)
 		{
-			particle.position = glm::vec3(3, 7, -6);
-			particle.speed = glm::vec3((double)rand() / RAND_MAX, 5 * abs((double)rand() / RAND_MAX), (double)rand() / RAND_MAX);
-			particle.ttl = rand() % 100;
+			particle.position = glm::vec3(particle.source.x + (rand() % 200 - 100) / 1000.0f, particle.source.y + (rand() % 200 - 100) / 1000.0f, particle.source.z + (rand() % 200 - 100) / 1000.0f);
+			particle.speed = glm::vec3((double)rand() / (3.0 * RAND_MAX), abs((double)rand() / RAND_MAX) + 0.1f, (double)rand() / (3.0 * RAND_MAX));
+            particle.ttl = (rand() % 25) / 10.0f;
 		}
 		particle.model->SetPosition(particle.position);
 	}

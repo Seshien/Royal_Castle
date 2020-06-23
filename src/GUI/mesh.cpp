@@ -103,16 +103,9 @@ bool Mesh::Collision(glm::vec3 pos, glm::mat4 mat)
 void Mesh::Draw(std::shared_ptr<ShaderProgram> shader)
 {
 
-    for (unsigned int i = 0; i < textures.size(); i++)
-    {
-
-        glActiveTexture(GL_TEXTURE0 + i); 
-        std::string number;
-        std::string name = textures[i].type;
-		glUniform1i(shader->u("TEX"), i);
-		glBindTexture(GL_TEXTURE_2D, textures[i].id);
-
-    }
+    glActiveTexture(GL_TEXTURE0); 
+	glUniform1i(shader->u("TEX"), 0);
+	glBindTexture(GL_TEXTURE_2D, textures[0].id);
 
     // draw mesh
     glBindVertexArray(VAO);

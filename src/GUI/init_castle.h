@@ -17,9 +17,6 @@ struct Light {
 class InitCastle
 {
 public:
-	int n;
-	Light sources[256];
-	
 	InitCastle(std::shared_ptr<ShaderProgram> shader);
 	void CreateObject(std::string name, glm::vec3 position, glm::vec3 scale, glm::vec3 rotate, float angle, glm::vec3 color, bool, glm::vec3);
 	void CreateTemplate(std::string path, std::string name, std::shared_ptr<ShaderProgram> shader);

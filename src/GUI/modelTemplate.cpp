@@ -108,7 +108,6 @@ Mesh ModelTemplate::processMesh(aiMesh* mesh, const aiScene* scene)
     std::vector<unsigned int> indices;
     std::vector<Texture> textures;
 
-    // walk through each of the mesh's vertices
 
     for (unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
@@ -158,31 +157,28 @@ Mesh ModelTemplate::processMesh(aiMesh* mesh, const aiScene* scene)
 
 std::vector<Texture> ModelTemplate::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
 {
-    std::vector<Texture> textures;
-    for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
+    std::vector<Texture> _textures;
+    aiString str;
+    mat->GetTexture(type, 0, &str);
+    bool skip = false;
+    for (unsigned int j = 0; j < textures.size(); j++)
     {
-        aiString str;
-        mat->GetTexture(type, i, &str);
-        bool skip = false;
-        for (unsigned int j = 0; j < textures_loaded.size(); j++)
+        if (std::strcmp(textures[j].path.data(), str.C_Str()) == 0)
         {
-            if (std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0)
-            {
-                textures.push_back(textures_loaded[j]);
-                skip = true; 
-                break;
-            }
-        }
-        if (!skip)
-        {   
-            Texture texture;
-            texture.id = TextureFromFile(str.C_Str(), this->directory);
-            texture.type = typeName;
-            texture.path = str.C_Str();
-            textures.push_back(texture);
-            textures_loaded.push_back(texture);
+            _textures.push_back(textures[j]);
+            skip = true; 
+            break;
         }
     }
-    return textures;
+    if (!skip)
+    {   
+        Texture texture;
+        texture.id = TextureFromFile(str.C_Str(), this->directory);
+        texture.type = typeName;
+        texture.path = str.C_Str();
+        _textures.push_back(texture);
+        textures.push_back(texture);
+    }
+    return _textures;
 }
 

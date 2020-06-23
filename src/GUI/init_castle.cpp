@@ -20,13 +20,13 @@ InitCastle::InitCastle(std::shared_ptr<ShaderProgram> shader)
 	scale_z = 0.03;
 	for (int i = 0; i < 100; i++)
 	{
-		CreateObject("dym", glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(1.0f, 0.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f), 0, glm::vec3(0.0f, 0.0f, 0.0f));
+		CreateObject("dym", glm::vec3(3, 7, -6), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(1.0f, 0.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f), 0, glm::vec3(0.0f, 0.0f, 0.0f));
 	}
 	scale_x = 0.1;
 	scale_y = 0.2;
 	scale_z = 0.1;	//podloga
 	CreateObject("studnia", glm::vec3(110 * scale_x, 0.0f, 0.0f), glm::vec3(scale_x*5, scale_y*3, scale_z*5), glm::vec3(0.0f, 1.0f, 0.0f), PI/2, glm::vec3(1.0f, 0.0f, 0.0f), 0, glm::vec3(0.0f, 0.0f, 0.0f));
-	CreateSources(glm::vec3(110 * scale_x-0.5, 2.3f, 0.2f), glm::vec3(0.8f, 0.8f, 0.8f));
+	CreateSources(glm::vec3(110 * scale_x - 0.5, 2.3f, 0.2f), glm::vec3(0.8f, 0.8f, 0.8f));
 	CreateSources(glm::vec3(110 * scale_x - 0.7, 2.3f, -0.3f), glm::vec3(0.8f, 0.8f, 0.8f));
 
 	CreateSources(glm::vec3(146 * scale_x, 7, -130 * scale_z), glm::vec3(0.8f, 0.8f, 0.8f));
@@ -59,7 +59,6 @@ InitCastle::InitCastle(std::shared_ptr<ShaderProgram> shader)
 	scale_x = 0.2;
 	scale_y = 0.6;
 	scale_z = 0.2;
-	n = 1;
 	for (int i = 0; i < 15; i += 3)
 	{
 		CreateObject("stragan", glm::vec3(-75 * scale_x, -0.5f, i), glm::vec3(scale_x, scale_y, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, glm::vec3(0.0f, 0.0f, 1.0f),0, glm::vec3(0.0f, 0.0f, 0.0f));	
@@ -132,5 +131,6 @@ void InitCastle::CreateSources(glm::vec3 pos, glm::vec3 col)
 	a.color = col;
 	a.pos = pos;
 	_lights.push_back(a);
+	for (int i = 0; i<50;i++) CreateObject("dym", pos, glm::vec3(0.02f, 0.02f, 0.02f), glm::vec3(1.0f, 0.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f), 0, glm::vec3(0.0f, 0.0f, 0.0f));
 	//sources[n++] = a;
 }
