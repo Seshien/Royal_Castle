@@ -12,7 +12,7 @@ InitCastle::InitCastle(std::shared_ptr<ShaderProgram> shader)
 	CreateTemplate("data/dym.obj", "dym", shader);
 	CreateTemplate("data/pochodnia.obj", "pochodnia", shader);
 	CreateTemplate("data/studnia.obj", "studnia", shader);
-
+	CreateTemplate("data/campfire.fbx", "ognisko", shader);
 	// ty
 	scale_x = 0.5;
 	scale_y = 0.5;
@@ -36,13 +36,17 @@ InitCastle::InitCastle(std::shared_ptr<ShaderProgram> shader)
 	
 	CreateObject("cube_2", glm::vec3(-10 * scale_x, -4.25 * scale_y, 40 * scale_z), glm::vec3(150 * scale_x, 0.1, 160 * scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f),0, glm::vec3(0.0f, 0.0f, 0.0f));
 
-	for(int i = (int)(scale_x * -50); i < 0; i+= (int)(scale_z*10))
-	CreateObject("house", glm::vec3(12.4 + 3*i, -4.5 * scale_y, 170 * scale_z), glm::vec3(scale_x * 3, scale_y * 3, scale_z * 3), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f), 1, glm::vec3(1.0f, 0.5f, 0.25f));
+	for (int i = (int)(scale_x * -50); i < 0; i += (int)(scale_z * 10))
+	{
+		CreateObject("house", glm::vec3(12.4 + 3 * i, -4.5 * scale_y, 170 * scale_z), glm::vec3(scale_x * 3, scale_y * 3, scale_z * 3), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f), 0, glm::vec3(1.0f, 0.5f, 0.25f));
+		CreateObject("ognisko", glm::vec3(12.4 + 3 * i, -4 * scale_y, 170 * scale_z), glm::vec3(scale_x * 1, scale_y * 1, scale_z * 1), glm::vec3(1.0f, 0.0f, 0.0f), -PI/2, glm::vec3(0.0f, 0.0f, 1.0f), 1, glm::vec3(1.0f, 0.5f, 0.25f));
+	}
+	
 	
 	CreateObject("castle", glm::vec3(0 * scale_x, -4.5 * scale_y, 0 * scale_z), glm::vec3(scale_x * 2, scale_y * 2, scale_z * 2), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(1.0f, 0.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f));
 	
-	CreateObject("pochodnia", glm::vec3(-158 * scale_x, 2.5 * 2 * scale_y, 140 * scale_z), glm::vec3(scale_x, scale_y * 2, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f), 1, glm::vec3(1.0f, 0.5f, 0.0f));
-	CreateObject("pochodnia", glm::vec3(-158 * scale_x, 2.5 * 2 * scale_y, -20 * scale_z), glm::vec3(scale_x, scale_y * 2, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f), 1, glm::vec3(1.0f, 0.5f, 0.0f));
+	CreateObject("pochodnia", glm::vec3(-158 * scale_x, 2.5 * 2 * scale_y, 140 * scale_z), glm::vec3(scale_x / 2, scale_y / 2, scale_z / 2), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f), 1, glm::vec3(1.0f, 0.5f, 0.0f));
+	CreateObject("pochodnia", glm::vec3(-158 * scale_x, 2.5 * 2 * scale_y, -20 * scale_z), glm::vec3(scale_x /2, scale_y / 2, scale_z / 2), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f), 1, glm::vec3(1.0f, 0.5f, 0.0f));
 	
 	CreateObject("mur", glm::vec3(140 * scale_x, 0 * scale_y, 40 * scale_z), glm::vec3(scale_x, scale_y * 2, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 0.0f, 0.0f));                                
 	CreateObject("mur", glm::vec3(0 * scale_x, 0 * scale_y, -120 * scale_z), glm::vec3(scale_x, scale_y * 2, scale_z), glm::vec3(0.0f, 1.0f, 0.0f), PI / 2, glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 0.0f, 0.0f));                                
@@ -76,7 +80,7 @@ void InitCastle::CreateObject(std::string name, glm::vec3 position, glm::vec3 sc
 	else
 		this->_objects.push_back(Model(temp, position, scale, rotate, angle, color));
 	if(is_source)
-		CreateSources(position+glm::vec3(0.0f, 0.5f, 0.0f), light_color);
+		CreateSources(position+glm::vec3(0.0f, 1.0f * scale_y , 0.0f), light_color);
 }
 std::shared_ptr<ModelTemplate> InitCastle::FindTemplate(std::string name)
 {
