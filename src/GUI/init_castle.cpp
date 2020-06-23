@@ -11,8 +11,7 @@ InitCastle::InitCastle(std::shared_ptr<ShaderProgram> shader)
 	CreateTemplate("data\\flaga.obj", "flaga", shader);
 	CreateTemplate("data\\dym.obj", "dym", shader);
 	CreateTemplate("data\\pochodnia.obj", "pochodnia", shader);
-
-
+	CreateTemplate("data\\studnia.obj", "studnia", shader);
 
 
 	// ty
@@ -26,8 +25,14 @@ InitCastle::InitCastle(std::shared_ptr<ShaderProgram> shader)
 	scale_x = 0.1;
 	scale_y = 0.2;
 	scale_z = 0.1;	//podloga
-	
+	CreateObject("studnia", glm::vec3(110 * scale_x, 0.0f, 0.0f), glm::vec3(scale_x*5, scale_y*3, scale_z*5), glm::vec3(0.0f, 1.0f, 0.0f), PI/2, glm::vec3(1.0f, 0.0f, 0.0f), 0, glm::vec3(0.0f, 0.0f, 0.0f));
+	CreateSources(glm::vec3(110 * scale_x-0.5, 2.3f, 0.2f), glm::vec3(0.8f, 0.8f, 0.8f));
+	CreateSources(glm::vec3(110 * scale_x - 0.7, 2.3f, -0.3f), glm::vec3(0.8f, 0.8f, 0.8f));
+
 	CreateSources(glm::vec3(146 * scale_x, 7, -130 * scale_z), glm::vec3(0.8f, 0.8f, 0.8f));
+	CreateSources(glm::vec3(146 * scale_x, 7, 203 * scale_z), glm::vec3(0.8f, 0.8f, 0.8f));
+	CreateSources(glm::vec3(-167 * scale_x, 7, 203 * scale_z), glm::vec3(0.8f, 0.8f, 0.8f));
+	CreateSources(glm::vec3(-167 * scale_x, 7, -130 * scale_z), glm::vec3(0.8f, 0.8f, 0.8f));
 
 	CreateObject("flaga", glm::vec3(-165 * scale_x, 8, -127 * scale_z), glm::vec3(scale_x * 4, scale_y * 4, scale_z * 4), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 0.0f, 0.0f));
 	CreateObject("flaga", glm::vec3(-165 * scale_x, 8, 205 * scale_z), glm::vec3(scale_x * 4, scale_y * 4, scale_z * 4), glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 1.0f, 0.0f), 0, glm::vec3(0.0f, 0.0f, 0.0f));

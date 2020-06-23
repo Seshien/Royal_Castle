@@ -104,7 +104,6 @@ bool Window::ObjectsInit()
     InitializeParticles();
 	InitializeFlags();
 
-
     return 0;
 }
 
