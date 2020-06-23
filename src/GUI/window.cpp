@@ -146,7 +146,7 @@ void Window::RenderWindow()
 
 
     glm::mat4 V = glm::lookAt(camera_ptr->cameraCoords, camera_ptr->cameraViewCoords + camera_ptr->cameraCoords, camera_ptr->cameraDefUpCoords); //Wylicz macierz widoku
-    glm::mat4 P = glm::perspective(glm::radians(50.0f), 1.0f, 1.0f, 100.0f); //Wylicz macierz rzutowania
+    glm::mat4 P = glm::perspective(glm::radians(50.0f), 1.0f, 1.0f, 300.0f); //Wylicz macierz rzutowania
 
     TexturedShader->use();
     glUniformMatrix4fv(TexturedShader->u("P"), 1, false, glm::value_ptr(P)); //Za³aduj do programu cieniuj¹cego macierz rzutowania

@@ -86,12 +86,12 @@ void Camera::DecreaseSpeed()
 
 void Camera::ResetSpeed()
 {
-	this->speed = 1.0f;
+	this->speed = 5.0f;
 }
 
 void Camera::SetFastSpeed()
 {
-	this->speed = 3.0f;
+	this->speed = 25.0f;
 }
 
 void Camera::printCoords()
