@@ -13,6 +13,7 @@ InitCastle::InitCastle(std::shared_ptr<ShaderProgram> shader)
 	CreateTemplate("data/pochodnia.obj", "pochodnia", shader);
 	CreateTemplate("data/studnia.obj", "studnia", shader);
 	CreateTemplate("data/campfire.fbx", "ognisko", shader);
+
 	// ty
 	scale_x = 0.5;
 	scale_y = 0.5;
