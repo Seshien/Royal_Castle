@@ -305,15 +305,25 @@ void Window::ProcessInputObjectMovement()
     if (glfwGetKey(window_ptr, GLFW_KEY_MINUS) == GLFW_PRESS)
         if (this->handled > 0 && clicker)
         {
-            handled--;
+            do
+            {
+                handled--;
+                if (this->handled == 0) break;
+            } while (this->objects[handled].GetParent()->GetName() == "dym");
             clicker = false;
         }
+
+
 
 
     if (glfwGetKey(window_ptr, GLFW_KEY_EQUAL) == GLFW_PRESS)
         if (this->handled + 1 < this->objects.size() && clicker)
         {
-            handled++;
+            do
+            {
+                handled++;
+                if (this->handled + 1 == this->objects.size()) break;
+            } while (this->objects[handled].GetParent()->GetName() == "dym");
             clicker = false;
         }
 
